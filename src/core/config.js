@@ -21,7 +21,7 @@ const config = {
      * Whether to enable devtools
      * 是否启用工具
     */
-    devtools: 'development' !== 'production',
+    devtools: process.env.NODE_ENV !== 'production',
 
     /*********
      * Error handler for watcher errors
@@ -73,13 +73,28 @@ const config = {
      * directive  指令
      * filter     过滤器
     */
-    _assetTypes: ['component', 'directive', 'filter'],
+    _assetTypes: [
+        'component', 
+        'directive', 
+        'filter'
+        ],
 
     /**********
      * List of lifecycle hooks.
      * 生命周期钩子列表。
     */
-    _lifecycleHooks: ['beforeCreate', 'created', 'beforeMount', 'mounted', 'beforeUpdate', 'updated', 'beforeDestroy', 'destroyed', 'activated', 'deactivated'],
+    _lifecycleHooks: [
+        'beforeCreate', 
+        'created', 
+        'beforeMount', 
+        'mounted', 
+        'beforeUpdate', 
+        'updated', 
+        'beforeDestroy', 
+        'destroyed', 
+        'activated', 
+        'deactivated'
+        ],
 
     /************
      * Max circular updates allowed in a scheduler flush cycle.

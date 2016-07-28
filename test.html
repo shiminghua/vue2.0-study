@@ -10,35 +10,11 @@
         {{message}}
     </div>
 
-    
+    <script src="vue/vue.js"></script>
     
     <script>
-
-        (function(global, factory) {
-            global.Vue = factory();
-            // console.log(factory());
-            // typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() : 
-            // typeof define === 'function' && define.amd ? define(factory) : 
-            // (global.Vue = factory());
-        }(this, function() {
-            function Vue(options) {
-                this._init(options);
-            }
-
-            function initMixin(Vue) {
-                Vue.prototype._init = function(options) {
-                    console.log('vue init');
-                }
-            }
-
-            initMixin(Vue);
-
-            return Vue;
-        }));
-
-        var vue = new Vue({});
-        console.log(window.Vue);
-        console.log(vue);
+        
+        console.log(Vue.prototype);
 
     </script>
 
