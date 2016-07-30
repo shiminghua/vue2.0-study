@@ -56,12 +56,12 @@ export function initMixin(Vue) {
          * 暴漏真实的自我
         */
         vm._self = vm;
-        initLifecycle(vm);
-        initEvents(vm);
-        callHook(vm, 'beforeCreate');
-        initState(vm);
-        callHook(vm, 'created');
-        initRender(vm);
+        // initLifecycle(vm);
+        // initEvents(vm);
+        // callHook(vm, 'beforeCreate');
+        // initState(vm);
+        // callHook(vm, 'created');
+        // initRender(vm);
     }
 
     /***

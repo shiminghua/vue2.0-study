@@ -169,7 +169,7 @@ export function isPlainObject(obj) {
 */
 export function toObject(arr) {
     var res = arr[0] || {};
-    for (var i = 1, len = arr.length; i < len; i++) {
+    for (var i = 1; i < arr.length; i++) {
         if(arr[i]) {
             extend(res, arr[i]);
         }

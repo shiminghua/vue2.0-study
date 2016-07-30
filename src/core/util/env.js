@@ -57,7 +57,7 @@ export const nextTick = (function() {
         pending = false;
         const copies = callbacks.slice(0); // 副本
         callbacks = [];
-        for (let i = 0, len = copies.length; i < len; i++) {
+        for (let i = 0; i < copies.length; i++) {
             copies[i]();
         }
     }
