@@ -3,9 +3,13 @@ let webpack = require('webpack');
 let path = require('path');
 
 let WebpackConfig = {
-    entry: './src/index',
+    // entry: './src/index',
+    // output: {
+    //     filename: './dist/vue.js'
+    // },
+    entry: './datastructure/list/list.js',
     output: {
-        filename: './dist/vue.js'
+        filename: './datastructure/dist/datastructure.js'
     },
     module: {
         loaders: [
