@@ -17,9 +17,12 @@ function displayList(list) {
     for (list.front(); list.currPos() < list.length() - 1; list.next()) {
         console.log(list.currPos(), list.getElement());
     }
-    list.next();
-    console.log(list.currPos(), list.getElement());
+    // list.next();
+    // console.log(list.currPos(), list.getElement());
 }
+// displayList(movieList);
+
+// movieList.clear();
 // displayList(movieList);
 
 /***
@@ -96,5 +99,11 @@ arr['aaa'] = 'bbb';
 arr['ccc'] = 'ddd';
 console.log(Array.prototype.slice.call(Object.keys(arr)));
 
-
-console.log(new DataStructure.TwowayLinkedList());
+/*************
+ * 字典测试
+*/
+let dictionary = new DataStructure.Dictionary();
+dictionary.add('aa', 11);
+dictionary.add('bb', 22);
+dictionary.clear();
+console.log(dictionary.showAll());

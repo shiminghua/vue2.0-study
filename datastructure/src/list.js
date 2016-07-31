@@ -67,7 +67,7 @@ class List {
     */
     clear() {
         delete this.dataStore; // 删除数组
-        this.dataStore.length = 0; // 创建一个空数组
+        this.dataStore = []; // 创建一个空数组
         this.listSize = this.pos = 0; // 设置列表的当前位置和列表的元素个数为0
     }
     /***

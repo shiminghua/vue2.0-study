@@ -67,9 +67,12 @@
 	    for (list.front(); list.currPos() < list.length() - 1; list.next()) {
 	        console.log(list.currPos(), list.getElement());
 	    }
-	    list.next();
-	    console.log(list.currPos(), list.getElement());
+	    // list.next();
+	    // console.log(list.currPos(), list.getElement());
 	}
+	// displayList(movieList);
+
+	// movieList.clear();
 	// displayList(movieList);
 
 	/***
@@ -142,7 +145,14 @@
 	arr['ccc'] = 'ddd';
 	console.log(Array.prototype.slice.call(Object.keys(arr)));
 
-	console.log(new _datastructure2.default.TwowayLinkedList());
+	/*************
+	 * 字典测试
+	*/
+	var dictionary = new _datastructure2.default.Dictionary();
+	dictionary.add('aa', 11);
+	dictionary.add('bb', 22);
+	dictionary.clear();
+	console.log(dictionary.showAll());
 
 /***/ },
 /* 1 */
@@ -168,6 +178,10 @@
 
 	var _linkedlist = __webpack_require__(5);
 
+	var _dictionary = __webpack_require__(6);
+
+	var _dictionary2 = _interopRequireDefault(_dictionary);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/***
@@ -186,6 +200,8 @@
 	DataStructure.TwowayLinkedList = _linkedlist.TwowayLinkedList;
 	// 循环链表
 	DataStructure.CircularLinkedList = _linkedlist.CircularLinkedList;
+	// 字典
+	DataStructure.Dictionary = _dictionary2.default;
 
 	exports.default = DataStructure;
 
@@ -295,7 +311,7 @@
 	        key: 'clear',
 	        value: function clear() {
 	            delete this.dataStore; // 删除数组
-	            this.dataStore.length = 0; // 创建一个空数组
+	            this.dataStore = []; // 创建一个空数组
 	            this.listSize = this.pos = 0; // 设置列表的当前位置和列表的元素个数为0
 	        }
 	        /***
@@ -863,6 +879,102 @@
 	exports.LinkedList = LinkedList;
 	exports.TwowayLinkedList = TwowayLinkedList;
 	exports.CircularLinkedList = CircularLinkedList;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/*************
+	 * 字典
+	*/
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Dictionary = function () {
+	    function Dictionary() {
+	        _classCallCheck(this, Dictionary);
+
+	        // 使用数组实现字典
+	        this.dataStore = [];
+	    }
+	    /****
+	     * 添加元素
+	    */
+
+
+	    _createClass(Dictionary, [{
+	        key: 'add',
+	        value: function add(key, value) {
+	            this.dataStore[key] = value;
+	        }
+	        /****
+	         * 查找元素
+	        */
+
+	    }, {
+	        key: 'find',
+	        value: function find(key) {
+	            return this.dataStore[key];
+	        }
+	        /****
+	         * 删除
+	        */
+
+	    }, {
+	        key: 'remove',
+	        value: function remove(key) {
+	            delete this.dataStore[key];
+	        }
+	        /****
+	         * 显示所有键值对
+	        */
+
+	    }, {
+	        key: 'showAll',
+	        value: function showAll() {
+	            var retArr = [];
+	            var dataStore = this.dataStore;
+	            Object.keys(dataStore).forEach(function (key) {
+	                retArr.push(key + ' -> ' + dataStore[key]);
+	            });
+	            // for (let key in Object.keys(this.dataStore)) {
+	            //     retArr.push(key + ' -> ' + this.dataStore[key]);
+	            // }
+	            return retArr;
+	        }
+	        /****
+	         * 字典中的元素个数
+	        */
+
+	    }, {
+	        key: 'count',
+	        value: function count() {
+	            return Object.keys(this.dataStore).length;
+	        }
+	        /****
+	         * 清空字典
+	        */
+
+	    }, {
+	        key: 'clear',
+	        value: function clear() {
+	            delete this.dataStore;
+	            this.dataStore = [];
+	        }
+	    }]);
+
+	    return Dictionary;
+	}();
+
+	exports.default = Dictionary;
 
 /***/ }
 /******/ ]);

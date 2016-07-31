@@ -4,6 +4,7 @@ import List from './list';
 import Stack from './stack';
 import Queue from './queue';
 import { LinkedList, TwowayLinkedList, CircularLinkedList } from './linkedlist';
+import Dictionary from './dictionary';
 
 /***
  * 数据结构对象
@@ -21,5 +22,7 @@ DataStructure.LinkedList = LinkedList;
 DataStructure.TwowayLinkedList = TwowayLinkedList;
 // 循环链表
 DataStructure.CircularLinkedList = CircularLinkedList;
+// 字典
+DataStructure.Dictionary = Dictionary;
 
 export default DataStructure;
