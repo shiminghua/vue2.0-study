@@ -3,6 +3,7 @@
 import List from './list';
 import Stack from './stack';
 import Queue from './queue';
+import { LinkedList, TwowayLinkedList, CircularLinkedList } from './linkedlist';
 
 /***
  * 数据结构对象
@@ -14,5 +15,11 @@ DataStructure.List = List;
 DataStructure.Stack = Stack;
 // 队列
 DataStructure.Queue = Queue;
+// 链表
+DataStructure.LinkedList = LinkedList;
+// 双向链表
+DataStructure.TwowayLinkedList = TwowayLinkedList;
+// 循环链表
+DataStructure.CircularLinkedList = CircularLinkedList;
 
 export default DataStructure;

@@ -8,14 +8,14 @@
 */
 // 节点类
 class Node {
-    contructor(element) {
+    constructor(element) {
         this.element = element;
         this.next = null;
     }
 }
 // 链表类
 class LinkedList {
-    contructor() {
+    constructor() {
         // 链表的头节点
         this.head = new Node('head');
         // 链表的当前节点
@@ -103,14 +103,15 @@ class LinkedList {
 */
 // 节点类
 class TwowayNode extends Node {
-    contructor(element) {
+    constructor(element) {
         super(element);
         this.previous = null;
     }
 }
 // 链表类
 class TwowayLinkedList extends LinkedList {
-    contructor() {
+    constructor() {
+        super();
         // 链表的头节点
         this.head = new TwowayNode('head');
         // 链表的当前节点
@@ -182,7 +183,7 @@ class TwowayLinkedList extends LinkedList {
  * 循环链表
 */
 class CircularLinkedList extends LinkedList {
-    contructor() {
+    constructor() {
         super();
         this.head.next = this.head;
     }
@@ -199,3 +200,5 @@ class CircularLinkedList extends LinkedList {
         return retArr;
     }
 }
+
+export { LinkedList, TwowayLinkedList, CircularLinkedList };

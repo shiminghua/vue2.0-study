@@ -52,6 +52,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	console.log(_datastructure2.default);
+
 	/****
 	 * 列表测试
 	*/
@@ -140,6 +142,8 @@
 	arr['ccc'] = 'ddd';
 	console.log(Array.prototype.slice.call(Object.keys(arr)));
 
+	console.log(new _datastructure2.default.TwowayLinkedList());
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -162,6 +166,8 @@
 
 	var _queue2 = _interopRequireDefault(_queue);
 
+	var _linkedlist = __webpack_require__(5);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/***
@@ -174,6 +180,12 @@
 	DataStructure.Stack = _stack2.default;
 	// 队列
 	DataStructure.Queue = _queue2.default;
+	// 链表
+	DataStructure.LinkedList = _linkedlist.LinkedList;
+	// 双向链表
+	DataStructure.TwowayLinkedList = _linkedlist.TwowayLinkedList;
+	// 循环链表
+	DataStructure.CircularLinkedList = _linkedlist.CircularLinkedList;
 
 	exports.default = DataStructure;
 
@@ -547,6 +559,310 @@
 	}();
 
 	exports.default = Queue;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/***************** 链表 **************/
+
+	/**********************
+	 * 单项链表 
+	 * 头节点为 head {element: 'head', next: null}
+	*/
+	// 节点类
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Node = function Node(element) {
+	    _classCallCheck(this, Node);
+
+	    this.element = element;
+	    this.next = null;
+	};
+	// 链表类
+
+
+	var LinkedList = function () {
+	    function LinkedList() {
+	        _classCallCheck(this, LinkedList);
+
+	        // 链表的头节点
+	        this.head = new Node('head');
+	        // 链表的当前节点
+	        this.currNode = this.head;
+	    }
+	    /***
+	     * 查找节点
+	    */
+
+
+	    _createClass(LinkedList, [{
+	        key: 'find',
+	        value: function find(item) {
+	            // 当前节点设为 head 节点
+	            var currNode = this.head;
+	            while (currNode !== null && currNode.element !== item) {
+	                currNode = currNode.next;
+	            }
+	            return currNode;
+	        }
+	        /****
+	         * 插入新节点
+	        */
+
+	    }, {
+	        key: 'insert',
+	        value: function insert(newElement, item) {
+	            // 定义新节点
+	            var newNode = new Node(newElement);
+	            // item的节点位置
+	            var currNode = this.find(item);
+	            // 新节点的 next 设置为item节点的 next
+	            newNode.next = currNode.next;
+	            // item节点的 next 设置为 newNode
+	            currNode.next = newNode;
+	        }
+	        /****
+	         * 查找前一个节点
+	        */
+
+	    }, {
+	        key: 'findPrevious',
+	        value: function findPrevious(item) {
+	            var currNode = this.head;
+	            while (currNode.next !== null && currNode.next.element !== item) {
+	                currNode = currNode.next;
+	            }
+	            return currNode;
+	        }
+	        /*****
+	         * 删除节点
+	        */
+
+	    }, {
+	        key: 'remove',
+	        value: function remove(item) {
+	            var prevNode = this.findPrevious(item);
+	            if (prevNode.next !== null) {
+	                prevNode.next = prevNode.next.next;
+	            }
+	        }
+	        /****
+	         * 显示链表中的元素
+	        */
+
+	    }, {
+	        key: 'display',
+	        value: function display() {
+	            var currNode = this.head;
+	            var retArr = [];
+	            while (currNode.next !== null) {
+	                currNode = currNode.next;
+	                retArr.push(currNode.element);
+	            }
+	            return retArr;
+	        }
+	        /****
+	         * 在链表中向前移动N个元素
+	        */
+
+	    }, {
+	        key: 'advance',
+	        value: function advance(n) {
+	            while (n > 0) {
+	                n--;
+	                if (this.currNode.next !== null) {
+	                    this.currNode = this.currNode.next;
+	                } else {
+	                    throw new Error('超出链表范围');
+	                }
+	            }
+	        }
+	        /****
+	         * 只显示当前节点
+	        */
+
+	    }, {
+	        key: 'show',
+	        value: function show() {
+	            return this.currNode.element;
+	        }
+	    }]);
+
+	    return LinkedList;
+	}();
+
+	;
+
+	/********
+	 * 双向链表
+	*/
+	// 节点类
+
+	var TwowayNode = function (_Node) {
+	    _inherits(TwowayNode, _Node);
+
+	    function TwowayNode(element) {
+	        _classCallCheck(this, TwowayNode);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TwowayNode).call(this, element));
+
+	        _this.previous = null;
+	        return _this;
+	    }
+
+	    return TwowayNode;
+	}(Node);
+	// 链表类
+
+
+	var TwowayLinkedList = function (_LinkedList) {
+	    _inherits(TwowayLinkedList, _LinkedList);
+
+	    function TwowayLinkedList() {
+	        _classCallCheck(this, TwowayLinkedList);
+
+	        // 链表的头节点
+	        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(TwowayLinkedList).call(this));
+
+	        _this2.head = new TwowayNode('head');
+	        // 链表的当前节点
+	        _this2.currNode = _this2.head;
+	        return _this2;
+	    }
+	    /****
+	     * 插入节点
+	    */
+
+
+	    _createClass(TwowayLinkedList, [{
+	        key: 'insert',
+	        value: function insert(newElement, item) {
+	            var newNode = new TwowayNode(element);
+	            var current = this.find(item);
+	            newNode.next = current.next;
+	            newNode.previous = current;
+	            current.next.previous = newNode;
+	            current.next = newNode;
+	        }
+	        /****
+	         * 删除节点
+	        */
+
+	    }, {
+	        key: 'remove',
+	        value: function remove(item) {
+	            var currNode = this.find(item);
+	            if (currNode.next !== null) {
+	                currNode.previous.next = currNode.next;
+	                currNode.next.previous = currNode.previous;
+	                currNode.next = null;
+	                currNode.previous = null;
+	                // currNode = null;
+	            }
+	        }
+	        /****
+	         * 查找最后一个节点
+	        */
+
+	    }, {
+	        key: 'findLast',
+	        value: function findLast() {
+	            var currNode = this.head;
+	            while (currNode.next !== null) {
+	                currNode = currNode.next;
+	            }
+	            return currNode;
+	        }
+	        /****
+	         * 反向显示链表中的元素
+	        */
+
+	    }, {
+	        key: 'displayReverse',
+	        value: function displayReverse() {
+	            // let currNode = this.head;
+	            var currNode = this.findLast();
+	            var retArr = [];
+	            while (currNode.previous !== null) {
+	                currNode = currNode.previous;
+	                retArr.push(currNode);
+	            }
+	            return retArr;
+	        }
+	        /****
+	         * 在链表中向后移动N个元素
+	        */
+
+	    }, {
+	        key: 'back',
+	        value: function back(n) {
+	            while (n > 0) {
+	                if (this.currNode.previous !== null) {
+	                    this.currNode = this.currNode.previous;
+	                } else {
+	                    throw new Error('超出链表范围');
+	                }
+	            }
+	        }
+	    }]);
+
+	    return TwowayLinkedList;
+	}(LinkedList);
+
+	/********************************
+	 * 循环链表
+	*/
+
+
+	var CircularLinkedList = function (_LinkedList2) {
+	    _inherits(CircularLinkedList, _LinkedList2);
+
+	    function CircularLinkedList() {
+	        _classCallCheck(this, CircularLinkedList);
+
+	        var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(CircularLinkedList).call(this));
+
+	        _this3.head.next = _this3.head;
+	        return _this3;
+	    }
+	    /*****
+	     * 显示链表中的元素
+	    */
+
+
+	    _createClass(CircularLinkedList, [{
+	        key: 'display',
+	        value: function display() {
+	            var currNode = this.head;
+	            var retArr = [];
+	            while (currNode.next !== null && currNode.next.element !== 'head') {
+	                currNode = currNode.next;
+	                retArr.push(currNode);
+	            }
+	            return retArr;
+	        }
+	    }]);
+
+	    return CircularLinkedList;
+	}(LinkedList);
+
+	exports.LinkedList = LinkedList;
+	exports.TwowayLinkedList = TwowayLinkedList;
+	exports.CircularLinkedList = CircularLinkedList;
 
 /***/ }
 /******/ ]);

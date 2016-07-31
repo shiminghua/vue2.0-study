@@ -2,6 +2,8 @@
 
 import DataStructure from '../src/datastructure';
 
+console.log(DataStructure);
+
 /****
  * 列表测试
 */
@@ -93,3 +95,6 @@ let arr = new Array();
 arr['aaa'] = 'bbb';
 arr['ccc'] = 'ddd';
 console.log(Array.prototype.slice.call(Object.keys(arr)));
+
+
+console.log(new DataStructure.TwowayLinkedList());
