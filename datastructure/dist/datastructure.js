@@ -46,11 +46,15 @@
 
 	'use strict';
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _datastructure = __webpack_require__(1);
 
 	var _datastructure2 = _interopRequireDefault(_datastructure);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	console.log(_datastructure2.default);
 
@@ -153,6 +157,167 @@
 	dictionary.add('bb', 22);
 	dictionary.clear();
 	console.log(dictionary.showAll());
+
+	/**************************************************************/
+	/******************************
+	 * 二叉查找树
+	*/
+	// 二叉查找树节点
+
+	var Node = function () {
+	    function Node(data, left, right) {
+	        _classCallCheck(this, Node);
+
+	        // 数据
+	        this.data = data;
+	        // 左节点
+	        this.left = left;
+	        // 右节点
+	        this.right = right;
+	    }
+	    /****
+	     * 显示节点
+	    */
+
+
+	    _createClass(Node, [{
+	        key: 'show',
+	        value: function show() {
+	            return this.data;
+	        }
+	    }]);
+
+	    return Node;
+	}();
+	// 二叉查找树类
+
+
+	var TwoForkTree = function () {
+	    function TwoForkTree() {
+	        _classCallCheck(this, TwoForkTree);
+
+	        // 根节点
+	        this.root = null;
+	    }
+	    /****
+	     * 加入新节点
+	    */
+
+
+	    _createClass(TwoForkTree, [{
+	        key: 'insert',
+	        value: function insert(data) {
+	            console.log(data);
+	            // 初始化新节点
+	            var node = new Node(data, null, null);
+	            // 如果不存在跟节点，将新节点设为跟节点
+	            if (this.root == null) {
+	                this.root = node;
+	            } else {
+	                var current = this.root;
+	                var parent = null;
+	                // 循环二叉树
+	                while (true) {
+	                    parent = current;
+	                    console.log(data, parent.data);
+	                    // 如果新值小于当前节点的值，查找左节点
+	                    if (data < current.data) {
+	                        current = current.left;
+	                        if (current == null) {
+	                            parent.left = node;
+	                            break;
+	                        }
+	                    }
+	                    // 新值大于当前节点的值，查找右节点
+	                    else {
+	                            current = current.right;
+	                            if (current == null) {
+	                                parent.right = node;
+	                                break;
+	                            }
+	                        }
+	                }
+	            }
+	        }
+	        /******
+	         * 中序遍历二叉树
+	        */
+
+	    }, {
+	        key: 'inOrder',
+	        value: function inOrder() {
+	            var node = this.root;
+	            return _inOrder(node);
+	        }
+	    }]);
+
+	    return TwoForkTree;
+	}();
+
+	/****
+	 * 中序遍历二叉树
+	*/
+
+
+	var _inOrder = function () {
+	    var retArr = [];
+	    var i = 0;
+	    function inOrder(node) {
+	        if (!(node == null)) {
+	            console.log('----' + i++, node.show());
+	            // retArr.push(node.show());
+	            // console.log(node.show());
+	            inOrder(node.left);
+	            inOrder(node.right);
+	        }
+	        return retArr;
+	    }
+	    return inOrder;
+	}();
+	/****
+	 * 先序遍历二叉树
+	*/
+	var preOrder = function () {
+	    var retArr = [];
+	    function preOrder(node) {
+	        if (!(node == null)) {
+	            retArr.push(node.show());
+	            console.log(node.show());
+	            preOrder(node.left);
+	            preOrder(node.right);
+	        }
+	        return retArr;
+	    }
+	    return preOrder;
+	}();
+
+	var numsTree = new TwoForkTree();
+	numsTree.insert(23);
+	numsTree.insert(45);
+	numsTree.insert(16);
+	numsTree.insert(37);
+	numsTree.insert(3);
+	numsTree.insert(99);
+	numsTree.insert(22);
+	console.log('two fork search tree');
+	console.log(numsTree.inOrder());
+
+	var root = numsTree.root;
+	console.log(root.show());
+	console.log(root.left.show(), root.right.show());
+	console.log(root.left.left.show(), root.left.right.show());
+	console.log(root.right.left.show(), root.right.right.show());
+
+	/*****/
+	function factorial(number) {
+	    console.log('factorial(' + number + ') * ');
+	    if (number === 1) {
+	        return number;
+	    } else {
+	        return number * factorial(number - 1);
+	    }
+	}
+	// console.log(factorial(5));
 
 /***/ },
 /* 1 */
