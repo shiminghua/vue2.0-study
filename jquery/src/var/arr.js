@@ -1,0 +1,4 @@
+/**
+ * arr
+ */
+export const arr = [];

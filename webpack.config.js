@@ -7,10 +7,16 @@ let WebpackConfig = {
     // output: {
     //     filename: './dist/vue.js'
     // },
-    entry: './datastructure/list/list.js',
-    output: {
-        filename: './datastructure/dist/datastructure.js'
-    },
+    /**
+     * datastructure
+     */
+    // entry: './datastructure/list/list.js',
+    // output: { filename: './datastructure/dist/datastructure.js' },
+    /**
+     * jquery
+     */
+    entry: './jquery/src/core.js',
+    output: { filename: './jquery/dist/jquery3.1.0.js' },
     module: {
         loaders: [
             {

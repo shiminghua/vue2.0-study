@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>观察者模式 - Observer</title>
+</head>
+
+<body>
+
+  <h1>观察者模式 - 消息系统 - 发布/订阅模式</h1>
+
+  <div id="list"></div>
+
+  <script>
+
+    // 
+    var Observer = (function() {
+      // 消息队列 - 静态私有变量
+      var _message = {};
+      return {
+        // 注册信息接口
+        regist: function(type, fn) {
+          // 如果此消息类型不存在则创建一个该消息类型
+          if (typeof _message[type] === 'undefined') {
+            // 将动作推入到该消息对应的动作执行队列中
+            _message[type] = [fn];
+          }
+          // 如果此消息存在
+          else {
+            // 将动作方法推入到该消息对应的动作执行序列中
+            _message[type].push(fn);
+          }
+        },
+        // 发布信息接口
+        fire: function(type, args) {
+          // 如果消息没有被注册则返回
+          if (!typeof _message[type]) {
+            return;
+          }
+          // 定义消息信息
+          var events = {
+            type: type,
+            args: args || {}
+          },
+          i = 0,
+          len = _message[type].length;
+          // 遍历消息动作
+          for (; i < len; i++) {
+            // 一次执行注册的消息对应的动作序列
+            _message[type][i].call(this, events);
+          }
+        },
+        // 移除信息接口
+        remove: function(type, fn) {
+          // 如果消息队列动作存在
+          if (_message[type] instanceof Array) {
+            // 从最后一个消息动作遍历
+            var i = _message[type].length - 1;
+            for (; i >= 0; i--) {
+              // 如果存在该动作，则在消息动作序列中移除相应动作
+              _message[type][i] === fn && _message[type].splice(i, 1);
+            }
+          }
+        }
+      };
+    })();
+
+    Observer.regist('test', function(e) {
+      console.log(e.type, e.args.msg);
+    });
+
+    Observer.fire('test', {msg: '传递参数'});
+
+  </script>
+
+</body>
+</html>
