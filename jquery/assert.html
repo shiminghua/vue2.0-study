@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>assert</title>
+
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+
+</head>
+
+<body>
+
+  <h1>assert</h1>
+
+  <ul id="results">
+    
+  </ul>
+
+  <script>
+
+    /** 
+     
+     // 定义断言函数
+    function assert(value, desc) {
+      let li = document.createElement('li');
+      li.className = value ? 'pass' : 'fail';
+      li.appendChild(document.createTextNode(desc));
+      document.getElementById('results').appendChild(li);
+    }
+
+    assert(true, 'The test suite is running.');
+    assert(false, 'Fail!');
+
+    */
+
+    (function() {
+      let results;
+      this.assert = function assert(value, desc) {
+        let li = document.createElement('li');
+        li.className = value ? 'pass' : 'fail';
+        li.appendChild(document.createTextNode(desc));
+        results.appendChild(li);
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail';
+        }
+        return li;
+      },
+      this.test = function test(name, fn) {
+        // let results = document.getElementById('results');
+        // let li = document.createElement('li');
+        // li.appendChild(document.createTextNode(name));
+        // tempUL = document.createElement('ul');
+        // li.appendChild(tempUL);
+        // results.appendChild(li)
+        results = document.getElementById('results');
+        results = assert(true, name).appendChild(
+          document.createElement('ul')
+        );
+        fn();
+      }
+    })();
+
+    test('A test', function() {
+      assert(true, 'First assertion completed');
+      assert(true, 'Second assertion completed');
+      assert(true, 'Third assertion completed');
+    });
+
+    test('Another test', function() {
+      assert(true, 'First assertion completed');
+      assert(false, 'Second assertion failed');
+      assert(true, 'Third assertion completed');
+    });
+
+    test('A third test', function() {
+      assert(null, 'fail');
+      assert(5, 'pass');
+      assert(0, 'fail');
+    });
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Ninja</title>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+</head>
+
+<body>
+
+  <h1>闭包 - closure</h1>
+
+  <div id="list">
+    <button id="test">Click Me!</button>
+  </div>
+
+  <h2>闭包 - closure</h2>
+  <ul id='results'></ul>
+
+  <!--<script src="../js/assert/assert.js"></script>-->
+  <script src="../js/assert/assert-along.js"></script>
+  <!--<script src="../js/assert/assert-async.js"></script>-->
+
+  <!--<script src="closure/private.js"></script>-->
+  <!--<script src="closure/context.js"></script>-->
+  <!--<script src="closure/currying.js"></script>-->
+  <!--<script src="closure/function-overloading.js"></script>-->
+  <script src="closure/realtime-function.js"></script>
+
+  <script>
+
+    function Test() {
+      this.a = 1;
+    }
+
+    var test = new Test();
+    console.log(test);
+    console.log({});
+    console.log(Object.create(null));
+    console.log({}.constructor);
+    console.log(Object.create(null).constructor);
+
+    console.log(typeof {});
+    console.log(typeof Object.create(null));
+
+  </script>
+
+</body>
+</html>

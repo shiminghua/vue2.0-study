@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Javascript Ninja</title>
+  <style>
+    #results li.pass { color: green; }
+    #results li.fail { color: red; }
+  </style>
+</head>
+
+<body>
+
+  <h1>Javascript Ninja</h1>
+
+  <div id="list">
+    aaaaa
+    <p>bbbbb</p>
+  </div>
+
+  <input id='first' />
+  <a id='second'></a>
+
+  <h2>assert - 断言</h2>
+  <ul id='results'></ul>
+
+  <!--<script src="../js/assert/assert.js"></script>-->
+  <script src="../js/assert/assert-along.js"></script>
+  <!--<script src="../js/assert/assert-async.js"></script>-->
+
+  <script>
+
+    // 重载函数的方法
+    function addMethod(object, name, fn) {
+      var old = object[name];
+      object[name] = function() {
+        if (fn.length === arguments.length) {
+          return fn.apply(this, arguments);
+        }
+        else {
+          return old.apply(this, arguments);
+        }
+      }
+    }
+
+    var ninjas = {
+      values: ['Dean Edwards', 'Sam Stephenson', 'Alex Russell']
+    };
+
+    addMethod(ninjas, 'find', function() { 
+      return this.values;
+    });
+
+    addMethod(ninjas, 'find', function(name) {
+      var ret = [];
+      for (var i = 0; i < this.values.length; i++) {
+        if (this.values[i].indexOf(name) === 0) {
+          ret.push(this.values[i]);
+        }
+      }
+      return ret;
+    });
+
+    addMethod(ninjas, 'find', function(first, last) {
+      var ret = [];
+      for (var i = 0; i < this.values.length; i++) {
+        if (this.values[i] === (first + ' ' + last)) {
+          ret.push(this.values[i]);
+        }
+      }
+      return ret;
+    });
+
+    addMethod(ninjas, 'find', function(first, last, a) {
+      // return null;
+    });
+
+    assert(ninjas.find().length === 3, 'Found all ninjas');
+    assert(ninjas.find('Sam').length === 1, 'Found ninja by first name');
+    assert(ninjas.find('Dean', 'Edwards').length === 1, 'Found ninja by first and last name');
+    assert(ninjas.find('Dean', 'Edwards', 'jr') == null, 'Found nothing');
+
+  </script>
+
+</body>
+</html>
