@@ -31,55 +31,28 @@
 
   <script>
 
-    // 重载函数的方法
-    function addMethod(object, name, fn) {
-      var old = object[name];
-      object[name] = function() {
-        if (fn.length === arguments.length) {
-          return fn.apply(this, arguments);
-        }
-        else {
-          return old.apply(this, arguments);
-        }
-      }
-    }
+   let div = document.getElementsByTagName('div')[0];
 
-    var ninjas = {
-      values: ['Dean Edwards', 'Sam Stephenson', 'Alex Russell']
-    };
+   div.setAttribute('id', 'ninja-1');
+   assert(div.getAttribute('id') === 'ninja-1', 'Attribute successfully changed.');
 
-    addMethod(ninjas, 'find', function() { 
-      return this.values;
-    });
+   div.id = 'ninja-2';
+   assert(div.id === 'ninja-2', 'Property successfully changed.');
 
-    addMethod(ninjas, 'find', function(name) {
-      var ret = [];
-      for (var i = 0; i < this.values.length; i++) {
-        if (this.values[i].indexOf(name) === 0) {
-          ret.push(this.values[i]);
-        }
-      }
-      return ret;
-    });
+   div.id = 'ninja-3';
+   assert(div.id === 'ninja-3', 'Property successfully changed.');
+   assert(div.getAttribute('id') === 'ninja-3', 'Attribute successfully changed via property.');
 
-    addMethod(ninjas, 'find', function(first, last) {
-      var ret = [];
-      for (var i = 0; i < this.values.length; i++) {
-        if (this.values[i] === (first + ' ' + last)) {
-          ret.push(this.values[i]);
-        }
-      }
-      return ret;
-    });
+   div.setAttribute('id', 'ninja-4');
+   assert(div.id === 'ninja-4', 'Property successfully changed via attribute.');
+   assert(div.getAttribute('id') === 'ninja-4', 'Attribute successfully changed.');
 
-    addMethod(ninjas, 'find', function(first, last, a) {
-      // return null;
-    });
 
-    assert(ninjas.find().length === 3, 'Found all ninjas');
-    assert(ninjas.find('Sam').length === 1, 'Found ninja by first name');
-    assert(ninjas.find('Dean', 'Edwards').length === 1, 'Found ninja by first and last name');
-    assert(ninjas.find('Dean', 'Edwards', 'jr') == null, 'Found nothing');
+   function isXML(elem) {
+     return (elem.ownerDocument != null) || elem.documentElement.nodeName.toLowerCase() !== 'html';
+   }
+
+   console.log(isXML(div));
 
   </script>
 
