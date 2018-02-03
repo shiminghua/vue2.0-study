@@ -1,4 +1,0 @@
-/**
- * arr
- */
-export const arr = [];
