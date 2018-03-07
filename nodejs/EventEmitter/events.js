@@ -57,6 +57,9 @@ myEmitter.emit('onceEvent');
 
 myEmitter.emit('error', new Error('whoops!'));
 
-console.log(myEmitter.eventNames());
+console.log('eventNames:', myEmitter.eventNames());
+console.log('getMaxListeners:', myEmitter.getMaxListeners());
+console.log('listenerCount:', myEmitter.listenerCount('event'));
+console.log('listeners:', myEmitter.listeners('event'));
 
 // console.log('11111');
