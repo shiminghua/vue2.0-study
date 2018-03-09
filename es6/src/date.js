@@ -14,3 +14,5 @@ console.log(currentDate.toString(), currentDate.toUTCString(), Date.now(), curre
 console.log(Date.now() - currentDate.getTime(), Date('2018-03-09T11:54:09.415954'));
 
 console.log(Date.UTC('2018-03-09T11:54:09.415954Z'));
+
+
