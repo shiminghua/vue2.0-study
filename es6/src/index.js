@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import './symbol/index.js';
+// import './symbol/index.js';
+import './date';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
