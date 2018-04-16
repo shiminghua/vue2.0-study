@@ -1,10 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
+/node_modules
 
 # production
-dist
+/dist
 
 # misc
 .DS_Store
@@ -13,14 +13,3 @@ npm-debug.log*
 # umi
 .umi
 .umi-production
-
-# yarn
-yarn.lock
-
-# 编辑器
-.idea
-*.iml
-.vscode
-
-# npm
-package-lock.json

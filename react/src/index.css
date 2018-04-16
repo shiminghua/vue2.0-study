@@ -3,3 +3,9 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.box-img {
+  padding-top: 10px;
+}
+.box-img > img {
+  width: 100%;
+}
