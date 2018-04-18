@@ -3,7 +3,11 @@
  */
 import assign from 'object-assign';
 import ReactVersion from '../shared/ReactVersion';
-import { REACT_FRAGMENT_TYPE } from '../shared/ReactSymbols';
+import {
+  REACT_FRAGMENT_TYPE,
+  REACT_STRICT_MODE_TYPE,
+  REACT_ASYNC_MODE_TYPE,
+} from 'shared/ReactSymbols';
 
 import { Component, PureComponent, AsyncComponent } from './ReactBaseClasses';
 import { forEach, map, count, toArray, only } from './ReactChildren';
