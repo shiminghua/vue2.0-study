@@ -16,6 +16,7 @@ function Component(props, context, updater) {
   this.context = context;
   this.refs = emptyObject;
   /**
+   * 更新器
    * We initialize the default updater but the real one gets injected by the renderer.
    * 我们初始化默认的更新程序，但真正的更新是有渲染器注入的。
    */
