@@ -93,7 +93,7 @@ Component.prototype.forceUpdate = function (callback) {
  * 相反，我们定义一个getter，它在访问时警告它。
  */
 if (__DEV__) {
-  // 弃用api
+  // 弃用apis
   const deprecatedAPIs = {
     isMounted: [
       'isMounted',
@@ -106,7 +106,7 @@ if (__DEV__) {
       'Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236).'
     ]
   };
-  // 定义启用警告函数
+  // 定义弃用警告函数
   const defineDeprecationWarning = function (methodName, info) {
     Object.defineProperty(Component.prototype, methodName, {
       get: function () {
@@ -128,28 +128,20 @@ if (__DEV__) {
   }
 }
 
-/**
- * Base class helpers for the updating state of a component.
- * 基类助手，用于更新组件的状态
- */
-// 纯粹的组件
-function PureComponent(props, context, updater) {
-  /**
-   * Duplicated from Component. 从组建复制
-   */
-  this.props = props;
-  this.context = context;
-  this.refs = emptyObject;
-  /**
-   * We initialize the default updater but the real one gets injected by the renderer.
-   * 我们初始化默认的更新程序，但真正的更新是由渲染器注入的。
-   */
-  this.updater = updater || ReactNoopUpdateQueue;
-}
-
 // 虚拟组件
 function ComponentDummy() { }
 ComponentDummy.prototype = Component.prototype;
+
+/**
+ * Convenience component with default shallow equality chz`eck for sCU.
+ * 为sCU设置默认浅相等的方便组件。
+ */
+function PureComponent(props, context, updater) {
+  this.props = props;
+  this.context = context;
+  this.refs = emptyObject;
+  this.updater = updater || ReactNoopUpdateQueue;
+}
 
 const pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
 pureComponentPrototype.constructor = PureComponent;
@@ -159,30 +151,5 @@ pureComponentPrototype.constructor = PureComponent;
  */
 Object.assign(pureComponentPrototype, Component.prototype);
 pureComponentPrototype.isPureReactComponent = true;
-
-// 异步组件
-function AsyncComponent(props, context, updater) {
-  // Duplicated from Component. 从 Component 复制
-  this.props = props;
-  this.context = context;
-  this.refs = emptyObject;
-  /**
-   * We initialize the default updater but the real one gets injected by the renderer.
-   * 我们初始化默认的更新程序，但真正的更新是由渲染器注入的。
-   */
-  this.updater = updater || ReactNoopUpdateQueue;
-}
-
-const asyncComponentPrototype = (AsyncComponent.prototype = new ComponentDummy());
-asyncComponentPrototype.constructor = AsyncComponent;
-/**
- * Avoid an extra prototype jump for these methods.
- * 为这些方法避免额外的原型跳转。
- */
-Object.assign(asyncComponentPrototype, Component.prototype);
-asyncComponentPrototype.unstable_isAsyncReactComponent = true;
-asyncComponentPrototype.render = function () {
-  return this.props.children;
-};
 
 export { Component, PureComponent, AsyncComponent };
