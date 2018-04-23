@@ -7,7 +7,8 @@ import registerServiceWorker from './registerServiceWorker';
 // import './symbol/index.js';
 // import './date';
 // import './moment/month';
-import './sparrow/utils';
+// import './sparrow/utils';
+import './promise/index';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
