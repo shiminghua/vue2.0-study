@@ -16,19 +16,13 @@ const Basic = ({ match }) => {
         <h2>主题列表</h2>
         <ul>
           <li>
-            <Link to={`${match.url}/rendering`}>
-              使用 React 渲染
-        </Link>
+            <Link to={`${match.url}/rendering`}>使用 React 渲染</Link>
           </li>
           <li>
-            <Link to={`${match.url}/components`}>
-              组件
-        </Link>
+            <Link to={`${match.url}/components`}>组件</Link>
           </li>
           <li>
-            <Link to={`${match.url}/props-v-state`}>
-              属性 v. 状态
-        </Link>
+            <Link to={`${match.url}/props-v-state`}>属性 v. 状态</Link>
           </li>
         </ul>
 
