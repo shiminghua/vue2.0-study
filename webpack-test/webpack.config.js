@@ -1,44 +1,29 @@
-/**
- * webpack config
- */
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const webpack = require('webpack');
-
+var webpack = require("webpack");
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
-  entry: {
-    app: './src/index.js',
-  },
-
+  entry: "./src/index.js",
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    filename: "[name].js?[hash]-[chunkhash]",
+    chunkFilename: "[name].js?[hash]-[chunkhash]",
+    path: __dirname + "/assets",
+    publicPath: "/assets/"
   },
-
-  devtool: 'inline-source-map',
-
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'hot module replacement'
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
-
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ],
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      },
+      { test: /\.png$/, loader: "file-loader" }
+    ]
   },
-
-  // devServer: {
-  //   contentBase: './dist',
-  //   hot: true,
-  // },
+  devtool: "source-map",
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+    // new webpack.optimize.CommonsChunkPlugin({ name: "c", filename: "c.js" })
+    // new webpack.SplitChunksPlugin(),
+  ]
 };

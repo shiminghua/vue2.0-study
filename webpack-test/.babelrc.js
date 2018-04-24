@@ -1,3 +1,4 @@
 module.exports = {
-  "plugins": ["syntax-dynamic-import"]
+  presets: ['env'],
+  plugins: ['syntax-dynamic-import'],
 };
