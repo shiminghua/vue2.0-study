@@ -1,0 +1,57 @@
+/* 变量 */
+@color: #4d926f;
+
+#header {
+  color: @color;
+}
+h2 {
+  color: @color;
+}
+
+/* 混合 */
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+}
+
+#header {
+  .rounded-corners;
+
+  h1 {
+    font-size: 26px;
+  }
+
+  p {
+    font-size: 12px;
+    a {
+      text-decoration: none;
+      &:hover {
+        border-width: 1px;
+      }
+    }
+  }
+}
+
+#footer {
+  .rounded-corners(10px);
+}
+
+#bundle {
+  .button () {
+    display: block;
+    background-color: gray;
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+#header a {
+  color: orange;
+  #bundle > .button;
+}
+
+// @var: `"hello".toUpperCase() + '!'`;
+
+@red: color(red);
+.red {
+  color: @red;
+}
