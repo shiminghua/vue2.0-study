@@ -1,0 +1,14 @@
+[ignore]
+## <PROJECT_ROOT>/node_modules/.*
+.*/node_modules/.*
+
+[include]
+E:/hanguang/study/flow/src/.*
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]
