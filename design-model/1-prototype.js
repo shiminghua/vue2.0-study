@@ -123,3 +123,16 @@ const hanoi = function (disc, src, aux, dst) {
 hanoi(3, 'A', 'B', 'C');
 document.writeln('----------------------------<br/>');
 hanoi(4, 'A', 'B', 'C');
+
+/**
+ * 阶乘 递归
+ */
+let factorial = function (i, a) {
+  a = a || 1;
+  if (i < 2) {
+    return a;
+  }
+  return factorial(i - 1, a * i);
+};
+
+console.log(factorial(4));
