@@ -12,7 +12,20 @@
   <!-- <script src="0-inherit.js"></script> -->
   <!-- <script src="1-factory-mothod.js"></script> -->
   <!-- <script src="1-abstract-factory.js"></script> -->
-  <script src="1-builder.js"></script>
+  <!-- <script src="1-builder.js"></script> -->
+  <!-- <script src="1-prototype.js"></script> -->
+
+  <button onclick="closeWindow()">关闭</button>
+  <script>
+
+    function closeWindow() {
+      console.log(111111);
+      if (typeof WeixinJSBridge !== 'undefined') {
+        WeixinJSBridge.call('closeWindow');
+      }
+    }
+
+  </script>
 </body>
 
 </html>
