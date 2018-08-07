@@ -3,19 +3,16 @@
  * @param {number} disc 圆盘
  * @param {string} src 源
  * @param {string} aux 辅助
- * @param {string} dst 技术
+ * @param {string} dst 目标
  */
-const hanoi = function (disc, src, aux, dst, flag) {
-  console.log(disc);
-  console.log(`${flag} Move disc ${disc} from ${src} to ${dst} `);
+const hanoi = function (disc, a, b, c) {
   if (disc > 0) {
-    hanoi(disc - 1, src, dst, aux, '----> ');
-    document.writeln(`Move disc ${disc} from ${src} to ${dst} <br />`);
-    hanoi(disc - 1, aux, src, dst, '====> ');
+    hanoi(disc - 1, a, c, b);
+    document.writeln(`Move disc ${disc} from ${a} to ${c} <br />`);
+    hanoi(disc - 1, b, a, c);
   }
 };
-
-hanoi(2, 'A', 'B', 'C', 'first');
+hanoi(3, 'A', 'B', 'C');
 document.writeln('----------------------------<br/>');
 // hanoi(4, 'A', 'B', 'C');
 
