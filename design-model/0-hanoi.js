@@ -1,9 +1,9 @@
 /**
- * 汉诺塔
+ * 汉诺塔 从a移动到c
  * @param {number} disc 圆盘
- * @param {string} src 源
- * @param {string} aux 辅助
- * @param {string} dst 目标
+ * @param {string} a 源
+ * @param {string} b 辅助
+ * @param {string} c 目标
  */
 const hanoi = function (disc, a, b, c) {
   if (disc > 0) {
