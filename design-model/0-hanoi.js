@@ -7,9 +7,11 @@
  */
 const hanoi = function (disc, a, b, c) {
   if (disc > 0) {
+    // document.writeln(`Move disc ${disc} from ${a} to ${c} <br />`);
     hanoi(disc - 1, a, c, b);
     document.writeln(`Move disc ${disc} from ${a} to ${c} <br />`);
     hanoi(disc - 1, b, a, c);
+    // document.writeln(`Move disc ${disc} from ${a} to ${c} <br />`);
   }
 };
 hanoi(3, 'A', 'B', 'C');
