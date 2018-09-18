@@ -53,6 +53,30 @@
     }
 
   </script>
+
+
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock.js"></script>
+  <script>
+    //模拟后台
+    Mock.mock('/api/users/1', {
+      'name': '@cname',   //中文名称
+      'age|1-100': 100,   //100以内随机整数
+      'birthday': '@date("yyyy-MM-dd")',  //日期
+      'city': '@city(true)'   //中国城市
+    });
+    //JQuery方式
+    $.ajax({
+      url: '/api/users/1',
+      dataType: 'json'
+    }).done(function (data, status, xhr) {
+      console.log(
+        JSON.stringify(data, null, 4)
+      )
+    });
+
+  </script>
 </body>
 
 </html>

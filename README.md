@@ -15,3 +15,5 @@
 - 区块链
 - js-ipfs
 - V8引擎
+- linux
+- shell
