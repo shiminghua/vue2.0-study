@@ -2,6 +2,9 @@
  * heigher-order function
  * 高阶函数
  */
+
+ 
+
 // 惰性加载函数
 let addEvent = function (elem, type, handler) {
   if (window.addEventListener) {
