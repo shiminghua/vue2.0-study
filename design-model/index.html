@@ -36,7 +36,8 @@
   <!-- <script src="3-state.js"></script> -->
   <!-- <script src="3-strategy.js"></script> -->
   <!-- <script src="0-polymorphic.js"></script> -->
-  <script src="0-heigher-order-function.js"></script>
+  <!-- <script src="0-heigher-order-function.js"></script> -->
+  <script src="9-code-refactor.js"></script>
 
   <br />
   <br />
@@ -54,27 +55,23 @@
 
   </script>
 
-
-
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-  <script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock.js"></script>
   <script>
-    //模拟后台
-    Mock.mock('/api/users/1', {
-      'name': '@cname',   //中文名称
-      'age|1-100': 100,   //100以内随机整数
-      'birthday': '@date("yyyy-MM-dd")',  //日期
-      'city': '@city(true)'   //中国城市
-    });
-    //JQuery方式
-    $.ajax({
-      url: '/api/users/1',
-      dataType: 'json'
-    }).done(function (data, status, xhr) {
-      console.log(
-        JSON.stringify(data, null, 4)
-      )
-    });
+
+    let print = function (i, j) {
+      console.log(`${i}、${j}`);
+    };
+
+    let func = function () {
+      for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+          if (i * j > 30) {
+            return print(i, j);
+          }
+        }
+      }
+    };
+
+    func();
 
   </script>
 </body>
