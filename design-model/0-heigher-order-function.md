@@ -7,3 +7,5 @@
 
 ## 函数作为参数传递
 
+- 回调函数
+- Array.prototype.sort
