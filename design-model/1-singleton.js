@@ -67,3 +67,42 @@ const LazySingle = (() => {
 
 // 测试
 console.log(LazySingle().publicProperty);
+
+
+// 通用惰性单例
+function getSingle(fn) {
+  let ret;
+  return function () {
+    return ret || (ret = fn.apply(this, arguments));
+  };
+}
+
+let createLoginLayer = function () {
+  let div = document.createElement('div');
+  div.innerHTML = '我是登录浮窗';
+  document.body.appendChild(div);
+  return div;
+};
+
+let createSingleLoginLayer = getSingle(createLoginLayer);
+
+createSingleLoginLayer();
+createSingleLoginLayer();
+createSingleLoginLayer();
+
+let createDialog = function () {
+  let div = document.createElement('div');
+  div.innerHTML = '我是弹出框';
+  document.body.appendChild(div);
+  return div;
+};
+
+let createSingleDialog = getSingle(createDialog);
+
+createSingleDialog();
+createSingleDialog();
+createSingleDialog();
+
+// createDialog();
+// createDialog();
+// createDialog();

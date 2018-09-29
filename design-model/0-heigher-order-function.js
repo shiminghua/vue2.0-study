@@ -138,6 +138,12 @@ function curry(fn) {
   };
 }
 
+let curryCost = curry(cost);
+curryCost(100);
+curryCost(200);
+curryCost(300);
+console.log(cost)
+
 // 2. uncurrying 反柯里化
 Function.prototype.uncurrying = function () {
   let self = this;
