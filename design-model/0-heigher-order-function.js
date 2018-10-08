@@ -208,13 +208,12 @@ obj.add();  //undefined
 obj.double(); //2
 
 // 分时函数
-
-let timeChunk = function (ary, fn, count) {
+let timeChunk = function (ary, fn, count = 10, interval = 100) {
   let obj, t;
 
   let start = function () {
-    let len = ary.length;
-    for (let i = 0; i < Math.min(count || 1, len); i++) {
+    let len = Math.min(count, ary.length);
+    for (let i = 0; i < len; i++) {
       obj = ary.shift();
       fn(obj);
     }
@@ -227,7 +226,7 @@ let timeChunk = function (ary, fn, count) {
         return clearInterval(t);
       }
       start();
-    }, 200);
+    }, interval);
   };
 };
 
@@ -240,7 +239,7 @@ let renderFriendList = timeChunk(ary, function (n) {
   let div = document.createElement('div');
   div.innerHTML = n;
   document.body.appendChild(div);
-}, 15);
+}, 13, 500);
 
 renderFriendList();
 
