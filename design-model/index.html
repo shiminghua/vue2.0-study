@@ -51,14 +51,135 @@
   <br />
   <br />
   <button onclick="closeWindow()">关闭</button>
+
+  <div id='buttons'>
+    <ul id='Answer'>
+      <li data-value='a'>a</li>
+      <li data-value='b'>b</li>
+      <li data-value='c'>c</li>
+      <li data-value='d'>d</li>
+      <li data-value='e'>e</li>
+    </ul>
+    <ul id='TopicTwo'>
+      <li data-value='a'>a</li>
+      <li data-value='b'>b</li>
+      <li data-value='c'>c</li>
+      <li data-value='d'>d</li>
+      <li data-value='e'>e</li>
+    </ul>
+    <ul id='TopicSan'>
+      <li data-value='a'>a</li>
+      <li data-value='b'>b</li>
+      <li data-value='c'>c</li>
+      <li data-value='d'>d</li>
+      <li data-value='e'>e</li>
+    </ul>
+    <ul id='TopicSi'>
+      <li data-value='a'>a</li>
+      <li data-value='b'>b</li>
+      <li data-value='c'>c</li>
+      <li data-value='d'>d</li>
+      <li data-value='e'>e</li>
+    </ul>
+    <ul id='TopicFive'>
+      <li data-value='a'>a</li>
+      <li data-value='b'>b</li>
+      <li data-value='c'>c</li>
+      <li data-value='d'>d</li>
+      <li data-value='e'>e</li>
+    </ul>
+  </div>
+
+  <div>
+    结果是：<div id='results'></div>
+  </div>
+
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <script>
 
-    function closeWindow() {
-      console.log(111111);
-      if (typeof WeixinJSBridge !== 'undefined') {
-        WeixinJSBridge.call('closeWindow');
+    // function closeWindow() {
+    //   console.log(111111);
+    //   if (typeof WeixinJSBridge !== 'undefined') {
+    //     WeixinJSBridge.call('closeWindow');
+    //   }
+    // }
+
+    function chooseTopic(callback) {
+      // 每个答案的选择次数
+      let selected = {
+        a: 0,
+        b: 0,
+        c: 0,
+        d: 0,
+        e: 0,
+      };
+      let results = {
+        a: '#Result1',
+        b: '#Result2',
+        c: '#Result3',
+        d: '#Result4',
+        e: '#Result5',
+      };
+
+      let uls = $('#buttons > ul');
+      let lis = uls.find('li');
+
+      let liss = $('#Answer li, #TopicTwo li, #TopicSan li, #TopicSi li, #TopicFive li');
+
+      lis.bind('click', (e) => {
+        let checkedValue = $(e.target).attr('data-value');
+        selected[checkedValue]++;
+      });
+
+      // 获取最大的数字
+      function getMaxNumber(anwsers, results) {
+        let result = 0;
+        Object.values(anwsers).forEach((value) => {
+          if (value > result) {
+            result = value;
+          }
+        });
+        return result;
       }
+
+      // 获取最大数字的选项
+      function getAnwsers(anwsers, num) {
+        return Object.keys(anwsers).filter((key) => {
+          return anwsers[key] === num;
+        });
+      }
+
+      // 获取结果
+      function getResult(ans) {
+        let result, len = ans.length;
+        if (len <= 1) {
+          result = ans[0];
+        }
+        else {
+          let random = Math.floor(Math.random() * len);
+          result = ans[random];
+        }
+        return results[result];
+      }
+
+      function getMyResult() {
+        let num = getMaxNumber(selected);
+        let ans = getAnwsers(selected, num);
+        let result = getResult(ans);
+        return result;
+      }
+
+      $('#TopicFive').bind('click', () => {
+        let result = getMyResult();
+        callback && callback(result, selected);
+      });
+
     }
+
+    chooseTopic(function (id, selected) {
+      console.log('----', id, selected);
+      $(id).show();
+    });
 
   </script>
 
