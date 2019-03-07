@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <title>pwa测试</title>
+</head>
+
+<body>
+  <h1>pwa测试</h1>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').then(function (registration) {
+        console.log('ServiceWorker registration successful width scope: ', registration.scope);
+      }).catch(function (err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    }
+
+    console.log(new Date('2019-03-07T11:59:06.886646').toString());
+    console.log(new Date('2019-03-07T11:59:06.886646+00:00').toString());
+    console.log(new Date('2019-03-07T11:59:06.886646+08:00'));
+    console.log(new Date('2019-03-07T11:59:06.886646+12:00').toString());
+    console.log(new Date('2019-03-07T11:59:06.886646Z').toString());
+
+
+
+    // let df = new Date("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    // //设置时区UTC
+    // df.setTimeZone(TimeZone.getTimeZone("UTC"));
+    // //格式化，转当地时区时间
+    // let after = df.parse(utcTime);
+    // System.out.println(after);
+    //Wed Jan 31 22:32:19 GMT+08:00 2018
+    let utcTime = "2019-03-07T11:59:06.886646Z";
+    var localDate = new Date(utcTime);
+    var localTime = localDate.getTime();
+    var localOffset = localDate.getTimezoneOffset() * 60 * 1000;
+    let aa = new Date(localTime + localOffset);
+    console.log(aa, aa.toString(), localDate.getTimezoneOffset());
+  </script>
+
+  <script src="./sw.js"></script>
+</body>
+
+</html>
