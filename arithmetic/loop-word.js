@@ -104,7 +104,7 @@ function loopWord(arr) {
   // console.log(letterArr);
 }
 
-loopWord(data);
+// loopWord(data);
 
 
 // let a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -117,3 +117,49 @@ loopWord(data);
 //     console.log(a);
 //   }
 // }
+
+function loop_word(arrs) {
+
+  // 定义数组，保存结果
+  let results = [];
+
+  // 外层循环
+  for (let i = 0, len = arrs.length; i < len; i++) {
+    let word = arrs[i];
+    // 定义循环单词的超集
+    let superset_loop_word = word + word;
+
+    if (i === 0) {
+      results.push({
+        loop_words: superset_loop_word,
+        words: new Set(word),
+        length: 1,
+      });
+    } else {
+      if (i < 100) {
+        // 循环results数组
+        for (let j = 0; j < results.length; j++) {
+          let resultWord = results[j];
+          console.log(resultWord.loop_words.indexOf(word));
+          // 如果符合循环单词的条件则添加，否则新建
+          if (resultWord.loop_words.indexOf(word) >= 0) {
+            resultWord.words.add(word);
+            resultWord.length++;
+          } else {
+            results.push({
+              loop_words: superset_loop_word,
+              words: new Set(word),
+              length: 1,
+            });
+          }
+
+        }
+      }
+    }
+  }
+
+  console.log(results);
+
+}
+
+loop_word(data);
