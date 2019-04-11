@@ -3,163 +3,103 @@
  */
 const data = require('./loop-test-data');
 
-// console.log(data.length);
-
-const dict = ["picture", "turepic", "icturep", "word", "ordw", "lint"];
-
-// 删除紧邻的相同字母
-function deleteSameLetter(val) {
-  const letterArr = val.split('');
-  const len = letterArr.length;
-  let resultLetter = [];
-  let temp;
-  // 记录每个单词出现的次数
-  let letterNum = {};
-  for (let i = 0; i < len; i++) {
-    temp = letterArr[i];
-    if (i === 0) {
-      resultLetter.push(temp);
-      letterNum[temp] = 1;
-    }
-    else if (temp != letterArr[i - 1]) {
-      resultLetter.push(temp);
-      if (letterNum[temp]) {
-        letterNum[temp]++;
-      }
-      else {
-        letterNum[temp] = 1;
-      }
-    }
-  }
-  // console.log('delete same letter', resultLetter);
-  return {
-    val,
-    letter: resultLetter,
-    wordLen: resultLetter.length,
-    letterNum,
-  };
-}
-
-
-// console.log(deleteSameLetter('aaaaabbbbbcddaac'));
-// deleteSameLetter('picture');
-
-// 生成一个单词的所有循环可能
-function createLoopWord(val) {
-  const arr = val.split('');
-  const len = arr.length;
-  let letterArr = arr.concat([]);
-  // let loopWord = [];
-  for (let i = 0; i < len - 1; i++) {
-    letterArr.push(arr.shift())
-  }
-
-  return letterArr;
-}
-
-// console.log(createLoopWord('abcde'));
-
-/**
- * 判断一个单词是否为另一个单词的循环单词
- * 是返回1，否返回0
- * @param {*} val1 
- * @param {*} val2 
- */
-function isLoopWord(val1, val2) {
-  // 长度不相等
-  if (val1.length != val2.length) {
-    return 0;
-  }
-  // 字符串完全相等
-  if (val1 === val2) {
-    return 0;
-  }
-
-}
-
-function loopWord(arr) {
-
-  let set = new Set();
-  let num = 0;
-  let obj = {};
-  for (let i = 0; i < arr.length; i++) {
-    let word = arr[i];
-    let tempWord = word + word;
-    let x = 0;
-
-    for (let j = 0; j < arr.length; j++) {
-      if (tempWord.indexOf(arr[j]) >= 0) {
-        set.add(word);
-        x++;
-      }
-    }
-
-    if (x >= 2) {
-      num++;
-    }
-    // console.log(num);
-  }
-  console.log(num);
-
-  // console.log(letterArr);
-}
-
-// loopWord(data);
-
-
-// let a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-// for (let i = 0; i < a.length; i++) {
-
-//   for (let j = 0; j < 5; j++) {
-//     // console.log(a[j]);
-//     console.log(a.splice(j, 1));
-
-//     console.log(a);
-//   }
-// }
 
 function loop_word(arrs) {
 
   // 定义数组，保存结果
   let results = [];
+  let len = arrs.length;
+  let wordMap = new Map();
 
   // 外层循环
-  for (let i = 0, len = arrs.length; i < len; i++) {
+  for (let i = 0; i < len; i++) {
     let word = arrs[i];
     // 定义循环单词的超集
     let superset_loop_word = word + word;
 
-    if (i === 0) {
-      results.push({
-        loop_words: superset_loop_word,
-        words: new Set(word),
-        length: 1,
-      });
-    } else {
-      if (i < 100) {
-        // 循环results数组
-        for (let j = 0; j < results.length; j++) {
-          let resultWord = results[j];
-          console.log(resultWord.loop_words.indexOf(word));
-          // 如果符合循环单词的条件则添加，否则新建
-          if (resultWord.loop_words.indexOf(word) >= 0) {
-            resultWord.words.add(word);
-            resultWord.length++;
-          } else {
-            results.push({
-              loop_words: superset_loop_word,
-              words: new Set(word),
-              length: 1,
-            });
-          }
+    for (let j = i + 1; j < len; j++) {
 
-        }
-      }
+
+
     }
+
   }
 
   console.log(results);
 
 }
 
-loop_word(data);
+// loop_word(data);
+
+
+function loopWord(arr) {
+
+  let results = [];
+  let count = 0;
+  let word;
+  let check = [];
+  let obj = {};
+  for (let i = 0, len = arr.length; i < len; i++) {
+    check[i] = false;
+  }
+  // 遍历每个单词
+  for (let i = 0, len = arr.length; i < len; i++) {
+
+    flag = false;
+    word = arr[i];
+    // check[i] = true;
+    if (!check[i]) {
+      let x = 0;
+      // 循环比较每个单词是否是旋转单词
+      for (let j = i + 1, len = arr.length; j < len; j++) {
+
+        if (sameLoopWord(word, arr[j])) {
+          x++;
+          check[j] = true;
+          saveLoopWord(obj, arr[i], arr[j]);
+        }
+
+      }
+      if (x >= 1) {
+        count++;
+      }
+    }
+
+  }
+
+  console.log(results);
+  console.log(count);
+  console.log(obj);
+
+}
+
+function sameLoopWord(stra, strb) {
+
+  if (stra.length != strb.length) {
+    return false;
+  }
+
+  const loopWord = stra + stra;
+
+  if (loopWord.indexOf(strb) >= 0) {
+    return true;
+  }
+
+  return false;
+
+}
+
+// 保存循环单词
+function saveLoopWord(obj, stra, strb) {
+  if (!obj[stra + stra]) {
+    obj[stra + stra] = {
+      words: new Set()
+    };
+  }
+
+  obj[stra + stra].words.add(stra);
+  obj[stra + stra].words.add(strb);
+}
+
+// console.log(sameLoopWord('abcd', 'bcdaa'));
+loopWord(data);
