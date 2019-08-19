@@ -2,6 +2,7 @@
  * 发布订阅模式
  */
 
+//  发布订阅功能
 const event = {
   clientList: {},
   // 订阅
@@ -46,6 +47,63 @@ const event = {
     }
   },
 };
+
+// 全局的发布订阅对象
+const EventGlogal = (function () {
+
+  let clientList = {};
+  let listen;
+  let trigger;
+  let remove;
+
+  listen = function (key, fn) {
+    if (!clientList[key]) {
+      clientList[key] = [];
+    } else {
+      clientList[key].push(fn);
+    }
+  };
+
+  trigger = function () {
+    let key = Array.prototype.shift.call(arguments);
+    let fns = clientList[key];
+
+    if (!fns || fns.length === 0) {
+      return false;
+    }
+
+    for (let i = 0, len = fns.length; i < len; i++) {
+      fn.apply(this, arguments);
+    }
+  };
+
+  remove = function (key, fn) {
+    let fns = clientList[key];
+
+    if (!fns) {
+      return false;
+    }
+
+    if (!fn) {
+      fns && (fns.length = 0);
+    } else {
+      for (let l = fns.length - 1; l >= 0; l--) {
+        let _fn = fns[l];
+        if (_fn === fn) {
+          fns.splice(l, 1);
+        }
+      }
+    }
+
+  };
+
+  return {
+    listen,
+    trigger,
+    remove,
+  };
+
+})();
 
 
 const Event = (function () {
