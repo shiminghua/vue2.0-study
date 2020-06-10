@@ -12,14 +12,14 @@ class SortedLinkedList extends DoublyLinkedList {
 
   // 插入元素
   insert(element) {
-    let position = this._getNodeIncludeHeadAndTail(element);
+    let position = this._getNodeNextInsert(element);
 
     if (this.size() === 0 || position.index === this.size()) {
       super.push(element);
     } else {
       let currentNode = new DoublyNode(element);
       let nextNode = position.node;
-      let prevNode = next.prev;
+      let prevNode = nextNode.prev;
 
       currentNode.next = nextNode;
       currentNode.prev = prevNode;
@@ -60,3 +60,5 @@ class SortedLinkedList extends DoublyLinkedList {
     };
   }
 }
+
+export default SortedLinkedList;
