@@ -47,11 +47,6 @@ class LinkedList {
     return this.head;
   }
 
-  // 获取链表尾结点
-  getTail() {
-    return this.tail;
-  }
-
   // 获取链表的第一个元素节点
   getFirstNode() {
     if (!this.isEmpty()) {
@@ -102,7 +97,7 @@ class LinkedList {
 
   // 获取链表中某个位置上的节点，内部使用的方法。
   // index 等于 -1 时返回头节点；index 等于 this.size() 时返回尾结点。
-  _getElementIncludeHeadAndTail(index) {
+  _getNodeIncludeHeadAndTail(index) {
     // index 等于 -1 时返回头节点
     if (index === -1) {
       return this.head;
@@ -174,7 +169,7 @@ class LinkedList {
 
       const node = new Node(element);
       // 上一个节点
-      let prevNode = this._getElementIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
       let currentNode = prevNode.next;
 
       node.next = currentNode;
@@ -202,7 +197,7 @@ class LinkedList {
     if (index >= 0 && index < this.size()) {
 
       // 上一个节点
-      let prevNode = this._getElementIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
 
       // 获取被删除的节点（当前节点）
       let current = prevNode.next;
@@ -236,41 +231,12 @@ class LinkedList {
 
   // 在链表头部移除节点
   removeHead() {
-    if (this.size() > 0) {
-      let headNode = this.getHead();
-      let firstNode = this.getFirstNode();
-
-      headNode.next = firstNode.next;
-      firstNode.next = undefined;
-
-      // 表长减一
-      this._sizeMinusOne();
-
-      return firstNode.element;
-    }
-    return undefined;
+    return this.removeAt(0);
   }
 
   // 在链表尾部删除节点
   removeTail() {
-    if (this.size() > 0) {
-      // 尾元素结点的上一个节点
-      let prevNode = this._getElementIncludeHeadAndTail(this.size() - 2);
-      let tailNodeElement = this.tail.element;
-
-      prevNode.next = undefined;
-      this.tail = prevNode;
-
-      // 表长减一
-      this._sizeMinusOne();
-
-      // 为空链表时，初始化尾指针
-      if (this.isEmpty()) {
-        this.tail = undefined;
-      }
-      return tailNodeElement;
-    }
-    return undefined;
+    return this.removeAt(this.size() - 1);
   }
 
   // 转为数组
@@ -293,7 +259,8 @@ class LinkedList {
   // 清空链表
   clean() {
 
-    // 考虑可能会造成内存泄漏，使用循环释放每一个节点
+    // 考虑可能会造成内存泄漏，使用循环释放每一个节点;
+    // 感觉释放内存这一段可以删掉
     let current = this.getFirstNode();
     let length = this.size();
     let i = 0;
@@ -309,6 +276,7 @@ class LinkedList {
       i++;
     }
 
+    // 初始化链表参数
     this.head.next = undefined;
     this.tail = undefined;
     this._sizeInitZero();

@@ -15,6 +15,11 @@ class DoublyLinkedList extends LinkedList {
     this.tail.prev = this.head; // 尾结点 prev 指向头结点
   }
 
+  // 获取链表尾结点
+  getTail() {
+    return this.tail;
+  }
+
   // 获取链表的最后一个元素节点
   getLastNode() {
     if (!this.isEmpty()) {
@@ -74,22 +79,6 @@ class DoublyLinkedList extends LinkedList {
     return undefined;
   }
 
-  // 获取链表中某个位置上的节点，内部使用的方法。
-  // index 等于 -1 时返回头节点；index 等于 this._length 时返回尾结点。
-  _getElementIncludeHeadAndTail(index) {
-    // index 等于 -1 时返回头节点
-    if (index === -1) {
-      return this.head;
-    }
-
-    // index 等于 this._length 时返回尾结点
-    if (index === this.size()) {
-      return this.tail;
-    }
-    // 正常返回节点
-    return this.getNodeAt(index);
-  }
-
   // 向链表尾部添加元素节点
   push(element) {
     const currentNode = new DoublyNode(element);
@@ -132,7 +121,7 @@ class DoublyLinkedList extends LinkedList {
     if (index >= 0 && index <= this.size()) {
       const node = new DoublyNode(element);
       // 获取index的上一个节点
-      let prevNode = this._getElementIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
       let currentNode = prevNode.next;
 
       // 插入逻辑
@@ -154,7 +143,7 @@ class DoublyLinkedList extends LinkedList {
     // 检查越界值
     if (index >= 0 && index < this.size()) {
       // 获取 index 位置上即将被删除的节点
-      let currentNode = this._getElementIncludeHeadAndTail(index);
+      let currentNode = this._getNodeIncludeHeadAndTail(index);
       let prevNode = currentNode.prev;
       let nextNode = currentNode.next;
 
@@ -204,16 +193,6 @@ class DoublyLinkedList extends LinkedList {
     }
 
     return undefined;
-  }
-
-  // 在链表头部移除节点
-  removeHead() {
-    return this.removeAt(0);
-  }
-
-  // 在链表尾部移除节点
-  removeTail() {
-    return this.removeAt(this.size() - 1);
   }
 
   // 清空链表
