@@ -1,36 +1,47 @@
-import LinkedList from './linked_list';
+// 双向链表测试
+import DoublyLinkedList from './doubly_linked_list';
 
-describe('链表测试', () => {
+describe('双向链表测试', () => {
 
-  let linkedList = new LinkedList();
-
-  // linkedList.length = 6;
-  // console.log(linkedList.length);
+  let linkedList = new DoublyLinkedList();
 
   test('链表初始化', () => {
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getHead().element).toBe('head');
-    expect(linkedList.tail).toBeUndefined();
-    expect(linkedList.head.next).toBeUndefined();
+    expect(linkedList.getTail().element).toBe('tail');
+    expect(linkedList.head.next.element).toBe('tail');
+    expect(linkedList.tail.prev.element).toBe('head');
+    expect(linkedList.getFirstNode()).toBeUndefined();
   });
 
   test('链表push测试', () => {
     linkedList.push(0);
     expect(linkedList.getFirstNode().element).toBe(0);
     expect(linkedList.size()).toBe(1);
-    expect(linkedList.tail.element).toBe(0);
+    expect(linkedList.getLastNode().element).toBe(0);
+    linkedList.push(10);
+    expect(linkedList.getFirstNode().element).toBe(0);
+    expect(linkedList.size()).toBe(2);
+    expect(linkedList.getLastNode().element).toBe(10);
+    linkedList.pushArray([2, 3, 4, 100]);
+    expect(linkedList.getFirstNode().element).toBe(0);
+    expect(linkedList.size()).toBe(6);
+    expect(linkedList.getLastNode().element).toBe(100);
   });
 
   test('清空链表', () => {
-    linkedList.pushArray([1, 2, 3, 4, 5]);
+
     linkedList.clean();
     expect(linkedList.size()).toBe(0);
-    expect(linkedList.head.next).toBeUndefined();
-    expect(linkedList.tail).toBeUndefined();
     expect(linkedList.getFirstNode()).toBeUndefined();
+    expect(linkedList.getLastNode()).toBeUndefined();
+    expect(linkedList.getHead().element).toBe('head');
+    expect(linkedList.getTail().element).toBe('tail');
+    expect(linkedList.getHead().next).toBe(linkedList.getTail());
+    expect(linkedList.getTail().prev).toBe(linkedList.getHead());
   });
 
-  test('查询链表', () => {
+  test('链表查询', () => {
     linkedList.clean();
     linkedList.pushArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     expect(linkedList.indexOf(0)).toBe(0);
@@ -39,9 +50,12 @@ describe('链表测试', () => {
     expect(linkedList.indexOf(10)).toBe(-1);
     expect(linkedList.indexOf(-1)).toBe(-1);
     expect(linkedList.indexOf(20)).toBe(-1);
+    expect(linkedList.indexOf(-10)).toBe(-1);
   });
 
   test('链表插入', () => {
+    linkedList.clean();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     linkedList.insert(20, 5);
     expect(linkedList.indexOf(20)).toBe(5);
     expect(linkedList.size()).toBe(11);
@@ -57,6 +71,15 @@ describe('链表测试', () => {
     linkedList.insert(400, 13);
     expect(linkedList.indexOf(400)).toBe(13);
     expect(linkedList.size()).toBe(15);
+
+    linkedList.clean();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    linkedList.insertArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 5);
+    expect(linkedList.size()).toBe(20);
+    expect(linkedList.getFirstNode().element).toBe(0);
+    expect(linkedList.getLastNode().element).toBe(9);
+    // console.log(linkedList.toArray());
+    // console.log(linkedList.toString());
   });
 
   test('链表删除', () => {
@@ -87,6 +110,12 @@ describe('链表测试', () => {
     expect(linkedList.indexOf(1)).toBe(0);
     expect(linkedList.getElementAt(0)).toBe(1);
     expect(linkedList.size()).toBe(2);
+
+    linkedList.clean();
+    linkedList.addHeadArray([0, 1, 2, 3, 4]);
+    expect(linkedList.getFirstNode().element).toBe(0);
+    expect(linkedList.getLastNode().element).toBe(4);
+    expect(linkedList.size()).toBe(5);
   });
 
   test('在头部删除节点', () => {
@@ -108,4 +137,5 @@ describe('链表测试', () => {
     expect(linkedList.removeTail()).toBe(1);
     expect(linkedList.removeTail()).toBeUndefined();
   });
+
 });
