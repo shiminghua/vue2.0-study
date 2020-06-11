@@ -107,21 +107,6 @@ class DoublyLinkedList {
     return -1;
   }
 
-  // 获取链表中某个位置上的节点
-  getNodeAt(index) {
-    // 判断index的值在合法范围
-    if (index >= 0 && index < this.size()) {
-      // 设置当前节点为头节点
-      let node = this._head;
-      for (let i = 0; i <= index && node != null; i++) {
-        node = node.next;
-      }
-      return node;
-    }
-    // index不在合法范围，返回undefined
-    return undefined;
-  }
-
   // 正序循环，获取链表中某个位置上的节点
   _loopFromHead(index) {
     // 判断index的值在合法范围
@@ -269,16 +254,16 @@ class DoublyLinkedList {
   insert(element, index) {
     // 检查越界值，index === this.size() 时，在链表尾部插入元素节点
     if (index >= 0 && index <= this.size()) {
-      const node = new DoublyNode(element);
+      const currentNode = new DoublyNode(element);
       // 获取index的上一个节点
       let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
-      let currentNode = prevNode.next;
+      let nextNode = prevNode.next;
 
       // 插入逻辑
-      node.next = currentNode;
-      node.prev = prevNode;
-      prevNode.next = node;
-      currentNode.prev = node;
+      currentNode.next = nextNode;
+      currentNode.prev = prevNode;
+      prevNode.next = currentNode;
+      nextNode.prev = currentNode;
 
       // 链表长度加 1
       this._sizeAddOne();

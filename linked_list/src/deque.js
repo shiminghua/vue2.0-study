@@ -31,32 +31,32 @@ class Deque {
 
   // 在队头添加新元素
   addHead(element) {
-
+    this.#data.addHead(element);
   }
 
   // 在队尾添加新元素
   addTail(element) {
-
+    this.#data.push(element);
   }
 
   // 在队头移除元素
   removeHead() {
-
+    return this.#data.removeHead();
   }
 
   // 在队尾移除元素
   removeTail() {
-
+    return this.#data.removeTail();
   }
 
   // 查看队头元素
   peekHead() {
-
+    return this.#data.getFirstElement();
   }
 
   // 查看队尾元素
   peekTail() {
-
+    return this.#data.getLastElement();
   }
 }
 

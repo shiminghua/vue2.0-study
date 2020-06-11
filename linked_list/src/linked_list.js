@@ -1,7 +1,7 @@
 import Node from './node.js';
 import defaultEquals from './default_equals.js';
 
-// 单链表
+// 单链表 
 class LinkedList {
 
   #length = 0; // 链表长度
@@ -124,7 +124,7 @@ class LinkedList {
   push(element) {
     const node = new Node(element);
     // 尾指针为空时，链表为空。此时头指针和尾指针都指向 node 元素
-    if (this.size() === 0) {
+    if (this.isEmpty()) {
       this.#head.next = this.#tail = node;
     } else {
       // 将尾元素的next指向node节点，再将尾指针指向node节点。
@@ -150,7 +150,7 @@ class LinkedList {
     this.pushArray(arr);
   }
 
-  // 想链表头部添加一个节点
+  // 向链表头部添加一个节点
   addHead(element) {
     const node = new Node(element);
     // 获取头结点
@@ -190,7 +190,12 @@ class LinkedList {
 
   // 在任意位置插入元素
   insert(element, index) {
-    if (index >= 0 && index <= this.size()) {
+
+    if (this.size() === 0 || index === this.size()) {
+      this.push(element);
+      return true;
+    }
+    if (index >= 0 && index < this.size()) {
 
       const node = new Node(element);
       // 上一个节点
@@ -209,6 +214,7 @@ class LinkedList {
   }
 
   // 通过数组插入元素
+  // 可优化：先把数组转成链表，再插入
   insertArray(arr, index) {
     // 为了保证和数组中的顺序一致，从数组尾部开始循环
     for (let i = arr.length - 1; i >= 0; i--) {
@@ -275,7 +281,7 @@ class LinkedList {
   // 转为数组
   toArray() {
     let arr = [];
-    let current = this.#head;
+    let current = this.getHead();
     for (let i = 0; i < this.size(); i++) {
       current = current.next;
       arr.push(current.element);
@@ -294,20 +300,20 @@ class LinkedList {
 
     // 考虑可能会造成内存泄漏，使用循环释放每一个节点;
     // 感觉释放内存这一段可以删掉
-    let current = this.getFirstNode();
-    let length = this.size();
-    let i = 0;
-    let next;
+    // let current = this.getFirstNode();
+    // let length = this.size();
+    // let i = 0;
+    // let next;
 
-    while (i < length && current != null) {
-      next = current.next;
-      current.next = undefined;
-      current = next;
+    // while (i < length && current != null) {
+    //   next = current.next;
+    //   current.next = undefined;
+    //   current = next;
 
-      this._sizeMinusOne();
+    //   this._sizeMinusOne();
 
-      i++;
-    }
+    //   i++;
+    // }
 
     // 初始化链表参数
     this.#head.next = undefined;
@@ -329,3 +335,5 @@ class LinkedList {
 }
 
 export default LinkedList;
+
+// 两个链表的拼接和插入

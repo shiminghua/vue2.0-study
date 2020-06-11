@@ -1,7 +1,7 @@
 // 有序链表测试
 import SortedLinkedList from './sorted_linked_list';
 
-describe('循环链表测试', () => {
+describe('有序链表测试', () => {
 
   let linkedList = new SortedLinkedList();
 
