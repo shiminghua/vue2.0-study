@@ -31,9 +31,23 @@ class Queue {
     this.#data.push(element);
   }
 
+  enQueueArray(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      this.enQueue(arr[i]);
+    }
+  }
+
   // 出队
   deQueue() {
     return this.#data.removeHead();
+  }
+
+  toArray() {
+    return this.#data.toArray();
+  }
+
+  toString() {
+    return this.#data.toString();
   }
 }
 
