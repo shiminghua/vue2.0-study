@@ -12,5 +12,11 @@ describe('循环链表测试', () => {
     expect(linkedList.getFirstNode().element).toBe(0);
     expect(linkedList.getLastNode().element).toBe(9);
     expect(linkedList.toString()).toBe('0,1,2,3,4,5,6,7,8,9');
+
+    linkedList.addHead(100);
+    expect(linkedList.getLastNode().element).toBe(100);
+    linkedList.push(-1);
+    expect(linkedList.getFirstNode().element).toBe(-1);
+    expect(linkedList.size()).toBe(12);
   });
 });

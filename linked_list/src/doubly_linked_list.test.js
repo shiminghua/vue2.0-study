@@ -9,8 +9,8 @@ describe('双向链表测试', () => {
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getHead().element).toBe('head');
     expect(linkedList.getTail().element).toBe('tail');
-    expect(linkedList.head.next.element).toBe('tail');
-    expect(linkedList.tail.prev.element).toBe('head');
+    expect(linkedList.getHead().next.element).toBe('tail');
+    expect(linkedList.getTail().prev.element).toBe('head');
     expect(linkedList.getFirstNode()).toBeUndefined();
   });
 
@@ -85,6 +85,7 @@ describe('双向链表测试', () => {
   test('链表删除', () => {
     linkedList.clean();
     linkedList.pushArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(linkedList.toString()).toBe('0,1,2,3,4,5,6,7,8,9');
     expect(linkedList.removeAt(0)).toBe(0);
     expect(linkedList.indexOf(0)).toBe(-1);
     expect(linkedList.indexOf(1)).toBe(0);

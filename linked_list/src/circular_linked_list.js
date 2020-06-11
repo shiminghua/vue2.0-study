@@ -6,9 +6,9 @@ class CircularLinkedList extends DoublyLinkedList {
   constructor(equals = defaultEquals) {
     super(equals);
     // 将头结点的 prev 指向尾结点
-    this.head.prev = this.tail;
+    this._head.prev = this._tail;
     // 将尾结点的 next 指向头结点
-    this.tail.next = this.head;
+    this._tail.next = this._head;
   }
 }
 

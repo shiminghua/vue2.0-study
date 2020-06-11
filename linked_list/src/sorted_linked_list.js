@@ -43,7 +43,7 @@ class SortedLinkedList extends DoublyLinkedList {
   }
 
   _getNodeNextInsert(element) {
-    let current = this.head;
+    let current = this.getHead();
     let i = 0;
 
     for (; i < this.size(); i++) {
