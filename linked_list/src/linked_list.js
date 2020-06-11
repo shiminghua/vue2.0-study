@@ -17,19 +17,24 @@ class LinkedList {
     return this.#length;
   }
 
+  // 修改链表长度
+  _setSize(num) {
+    this.#length = num;
+  }
+
   // 链表长度加 1 ，内部使用方法
   _sizeAddOne() {
-    this.#length++;
+    this._setSize(this.size() + 1);
   }
 
   // 链表长度减 1，内部使用方法
   _sizeMinusOne() {
-    this.#length--;
+    this._setSize(this.size() - 1);
   }
 
   // 链表长度设为 0
   _sizeInitZero() {
-    this.#length = 0;
+    this._setSize(0);
   }
 
   // 使用 getter ，返回链表长度
@@ -233,12 +238,93 @@ class LinkedList {
   }
 
   // 通过数组插入元素
-  // 可优化：先把数组转成链表，再插入
+  // 可优化：先把数组转成链表，再插入；这样不需要每次插入都都去循环查找链表；
+  // 改为两个链表的拼接和插入
   insertArray(arr, index) {
     // 为了保证和数组中的顺序一致，从数组尾部开始循环
     for (let i = arr.length - 1; i >= 0; i--) {
       this.insert(arr[i], index);
     }
+  }
+
+  // 复制链表
+  copy() {
+    let linkedList = new LinkedList();
+    let currentNode = this.getHead();
+    for (let i = 0; i < this.size(); i++) {
+      currentNode = currentNode.next;
+      linkedList.push(currentNode);
+    }
+    return linkedList;
+  }
+
+  // 连接两个链表；需要返回一个新的链表，在修改的时候不会影响原有链表
+  concat(linkedList) {
+    if (linkedList.isEmpty()) {
+      return this;
+    }
+
+    let thisTail = this.getTail();
+    let thisHead = this.getHead();
+    let concatFirstNode = linkedList.getFirstNode();
+    let concatLastNode = linkedList.getLastNode();
+
+    if (this.isEmpty()) {
+      thisHead.next = concatFirstNode;
+    } else {
+      thisTail.next = concatFirstNode;
+    }
+    // 移动尾指针，指向正确的尾节点
+    this.#tail = concatLastNode;
+
+    // 链表长度是两个链表长度之和
+    this._setSize(this.size() + linkedList.size());
+
+    return this;
+  }
+
+  // 在任意位置插入一个链表
+  insertLinkedList(linkedList, index) {
+    // 当 linkedList.size() === 0 时，直接返回 this
+    if (linkedList.isEmpty()) {
+      return this;
+    }
+
+    // 当 this.size() === 0 时，直接返回 linkedList
+    if (this.isEmpty()) {
+      return linkedList;
+    }
+
+    // index === 0 时，在头部插入链表，即使用 linkedList 连接 this
+    if (index === 0) {
+      linkedList.concat(this);
+      return true;
+    }
+
+    // index === this.size() 时，连接两个链表
+    if (index === this.size()) {
+      this.concat(linkedList);
+      return true;
+    }
+
+    if (index > 0 && index < this.size()) {
+
+      // 上一个节点
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
+      let currentNode = prevNode.next;
+
+      let insertFirstNode = linkedList.getFirstNode();
+      let insertLastNode = linkedList.getLastNode();
+
+      prevNode.next = insertFirstNode();
+      insertLastNode.next = currentNode;
+
+      // 链表长度 +1
+      this._setSize(this.size() + linkedList.size());
+
+      return true;
+    }
+    return false;
   }
 
   // 删除给定位置的节点

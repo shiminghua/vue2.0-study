@@ -104,4 +104,51 @@ describe('链表测试', () => {
     expect(linkedList.removeTail()).toBe(1);
     expect(linkedList.removeTail()).toBeUndefined();
   });
+
+  test('复制链表', () => {
+    linkedList.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    let linkedList2 = linkedList.copy();
+
+    expect(linkedList.size()).toBe(10);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(9);
+  });
+
+  test('链表concat测试', () => {
+
+    linkedList.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    expect(linkedList.size()).toBe(6);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(5);
+
+    let linkedList2 = LinkedList.fromArray([6, 7, 8, 9]);
+    linkedList.concat(linkedList2);
+
+    expect(linkedList.size()).toBe(10);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(9);
+
+    linkedList.clear();
+    linkedList.concat(linkedList2);
+    expect(linkedList.size()).toBe(4);
+    expect(linkedList.getFirstElement()).toBe(6);
+    expect(linkedList.getLastElement()).toBe(9);
+
+    linkedList.clear();
+    linkedList2.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    linkedList.concat(linkedList2);
+    expect(linkedList.size()).toBe(6);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(5);
+  });
+
+  test('在任意位置插入链表', () => {
+    linkedList.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    let linkedList2 = LinkedList.fromArray([6, 7, 8, 9]);
+    linkedList.insert(linkedList2, 0);
+  });
 });
