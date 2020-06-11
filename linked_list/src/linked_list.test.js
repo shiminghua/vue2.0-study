@@ -4,14 +4,10 @@ describe('链表测试', () => {
 
   let linkedList = new LinkedList();
 
-  // linkedList.length = 6;
-  // console.log(linkedList.length);
-
   test('链表初始化', () => {
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getFirstElement()).toBeUndefined();
     expect(linkedList.getLastElement()).toBeUndefined();
-    // expect(linkedList.getHead().next).toBeUndefined();
   });
 
   test('链表push测试', () => {
@@ -22,7 +18,7 @@ describe('链表测试', () => {
   });
 
   test('清空链表', () => {
-    // linkedList.pushArray([1, 2, 3, 4, 5]);
+    linkedList.pushArray([1, 2, 3, 4, 5]);
     linkedList.clean();
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getHead().next).toBeUndefined();
