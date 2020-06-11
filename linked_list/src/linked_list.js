@@ -50,7 +50,7 @@ class LinkedList {
   // 获取链表的第一个元素节点
   getFirstNode() {
     if (!this.isEmpty()) {
-      return this.#head.next;
+      return this.getHead().next;
     }
     return undefined;
   }
@@ -64,10 +64,29 @@ class LinkedList {
     return undefined;
   }
 
+  getTail() {
+    return this.#tail;
+  }
+
+  getLastNode() {
+    if (!this.isEmpty()) {
+      return this.getTail();
+    }
+    return undefined;
+  }
+
+  getLastElement() {
+    let lastNode = this.getLastNode();
+    if (lastNode != null) {
+      return lastNode.element;
+    }
+    return undefined;
+  }
+
   // 返回一个元素的位置
   indexOf(element) {
     // 设置当前节点为第一节点，即第零个正式节点
-    let node = this.#head;
+    let node = this.getHead();
     // 遍历整个链表节点
     for (let i = 0; i < this.size() && node != null; i++) {
       node = node.next;
@@ -85,7 +104,7 @@ class LinkedList {
     // 判断index的值在合法范围
     if (index >= 0 && index < this.size()) {
       // 设置当前节点为头节点
-      let node = this.#head;
+      let node = this.getHead();
       for (let i = 0; i <= index && node != null; i++) {
         node = node.next;
       }
@@ -109,7 +128,7 @@ class LinkedList {
   _getNodeIncludeHeadAndTail(index) {
     // index 等于 -1 时返回头节点
     if (index === -1) {
-      return this.#head;
+      return this.getHead();
     }
 
     // index 等于 this.size() 时返回尾结点
@@ -125,7 +144,7 @@ class LinkedList {
     const node = new Node(element);
     // 尾指针为空时，链表为空。此时头指针和尾指针都指向 node 元素
     if (this.isEmpty()) {
-      this.#head.next = this.#tail = node;
+      this.getHead().next = this.#tail = node;
     } else {
       // 将尾元素的next指向node节点，再将尾指针指向node节点。
       this.#tail.next = node;
@@ -316,7 +335,7 @@ class LinkedList {
     // }
 
     // 初始化链表参数
-    this.#head.next = undefined;
+    this.getHead().next = undefined;
     this.#tail = undefined;
     this._sizeInitZero();
   }

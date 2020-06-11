@@ -9,24 +9,24 @@ describe('链表测试', () => {
 
   test('链表初始化', () => {
     expect(linkedList.size()).toBe(0);
-    expect(linkedList.getHead().element).toBe('head');
-    // expect(linkedList.).toBeUndefined();
-    expect(linkedList.getHead().next).toBeUndefined();
+    expect(linkedList.getFirstElement()).toBeUndefined();
+    expect(linkedList.getLastElement()).toBeUndefined();
+    // expect(linkedList.getHead().next).toBeUndefined();
   });
 
   test('链表push测试', () => {
     linkedList.push(0);
-    expect(linkedList.getFirstNode().element).toBe(0);
+    expect(linkedList.getFirstElement()).toBe(0);
     expect(linkedList.size()).toBe(1);
-    // expect(linkedList.tail.element).toBe(0);
+    expect(linkedList.getLastElement()).toBe(0);
   });
 
   test('清空链表', () => {
-    linkedList.pushArray([1, 2, 3, 4, 5]);
+    // linkedList.pushArray([1, 2, 3, 4, 5]);
     linkedList.clean();
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getHead().next).toBeUndefined();
-    // expect(linkedList.tail).toBeUndefined();
+    expect(linkedList.getTail()).toBeUndefined();
     expect(linkedList.getFirstNode()).toBeUndefined();
   });
 
