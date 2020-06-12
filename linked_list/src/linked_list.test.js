@@ -21,8 +21,7 @@ describe('链表测试', () => {
     linkedList.pushArray([1, 2, 3, 4, 5]);
     linkedList.clean();
     expect(linkedList.size()).toBe(0);
-    expect(linkedList.getHead().next).toBeUndefined();
-    expect(linkedList.getTail()).toBeUndefined();
+    expect(linkedList.getLastNode()).toBeUndefined();
     expect(linkedList.getFirstNode()).toBeUndefined();
   });
 
