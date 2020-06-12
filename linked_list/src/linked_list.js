@@ -1,6 +1,13 @@
 import Node from './node.js';
 import defaultEquals from './default_equals.js';
 
+/**
+ * 子类中需要重写的公开方法
+ * push、addHead、insert、concat、concatThis、insertLinkedList、removeAt、remove、clean
+ * 子类中需要重写的私有方法
+ * #setSize、#sizeAddOne、#sizeMinusOne、#sizeInitZero、#getHead、#getTail、#getNodeIncludeHeadAndTail
+ */
+
 // 单链表 
 class LinkedList {
 
@@ -469,10 +476,4 @@ class LinkedList {
   }
 }
 
-// Object.assign(LinkedList.prototype, MixinLinkedList);
-
-// console.log(LinkedList);
-
 export default LinkedList;
-
-// 两个链表的拼接和插入
