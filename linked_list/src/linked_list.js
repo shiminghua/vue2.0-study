@@ -88,6 +88,10 @@ class LinkedList {
     return undefined;
   }
 
+  _setTail(node) {
+    this.#tail = node;
+  }
+
   // 返回一个元素的位置
   indexOf(element) {
     // 设置当前节点为第一节点，即第零个正式节点
@@ -241,10 +245,9 @@ class LinkedList {
   // 可优化：先把数组转成链表，再插入；这样不需要每次插入都都去循环查找链表；
   // 改为两个链表的拼接和插入
   insertArray(arr, index) {
-    // 为了保证和数组中的顺序一致，从数组尾部开始循环
-    for (let i = arr.length - 1; i >= 0; i--) {
-      this.insert(arr[i], index);
-    }
+    // 将数组转为链表
+    const linkedList = LinkedList.fromArray(arr);
+    this.insertLinkedList(linkedList, index);
   }
 
   // 复制链表
@@ -253,33 +256,60 @@ class LinkedList {
     let currentNode = this.getHead();
     for (let i = 0; i < this.size(); i++) {
       currentNode = currentNode.next;
-      linkedList.push(currentNode);
+      linkedList.push(currentNode.element);
     }
     return linkedList;
   }
 
-  // 连接两个链表；需要返回一个新的链表，在修改的时候不会影响原有链表
+  // 连接两个链表；
+  // 次方法返回一个新链表，不会修改现有链表。
   concat(linkedList) {
-    if (linkedList.isEmpty()) {
-      return this;
+
+    let newLinkedList = this.copy();
+
+    if (!linkedList.isEmpty()) {
+      let newConcat = linkedList.copy();
+      let newTail = newLinkedList.getTail();
+      let newHead = newLinkedList.getHead();
+
+      let concatFirstNode = newConcat.getFirstNode();
+      let concatLastNode = newConcat.getLastNode();
+
+      if (newLinkedList.isEmpty()) {
+        newHead.next = concatFirstNode;
+      } else {
+        newTail.next = concatFirstNode;
+      }
+
+      // 移动尾指针，指向正确的尾节点
+      newLinkedList._setTail(concatLastNode);
+
+      // 链表长度是两个链表长度之和
+      newLinkedList._setSize(newLinkedList.size() + newConcat.size());
     }
 
-    let thisTail = this.getTail();
-    let thisHead = this.getHead();
-    let concatFirstNode = linkedList.getFirstNode();
-    let concatLastNode = linkedList.getLastNode();
+    return newLinkedList;
+  }
 
-    if (this.isEmpty()) {
-      thisHead.next = concatFirstNode;
-    } else {
-      thisTail.next = concatFirstNode;
+  // 将新链表链接到本链表直上
+  concatThis(linkedList) {
+    if (!linkedList.isEmpty()) {
+      let concatLinkedList = linkedList.copy();
+      let thisHead = this.getHead();
+      let thisTail = this.getTail();
+      let concatFirstNode = concatLinkedList.getFirstNode();
+      let concatLastNode = concatLinkedList.getLastNode();
+
+      if (this.isEmpty()) {
+        thisHead.next = concatFirstNode;
+      } else {
+        thisTail.next = concatFirstNode;
+      }
+
+      this._setTail(concatLastNode);
+
+      this._setSize(this.size() + concatLinkedList.size());
     }
-    // 移动尾指针，指向正确的尾节点
-    this.#tail = concatLastNode;
-
-    // 链表长度是两个链表长度之和
-    this._setSize(this.size() + linkedList.size());
-
     return this;
   }
 
@@ -290,24 +320,13 @@ class LinkedList {
       return this;
     }
 
-    // 当 this.size() === 0 时，直接返回 linkedList
-    if (this.isEmpty()) {
-      return linkedList;
-    }
-
-    // index === 0 时，在头部插入链表，即使用 linkedList 连接 this
-    if (index === 0) {
-      linkedList.concat(this);
-      return true;
-    }
-
     // index === this.size() 时，连接两个链表
     if (index === this.size()) {
-      this.concat(linkedList);
+      this.concatThis(linkedList);
       return true;
     }
 
-    if (index > 0 && index < this.size()) {
+    if (index >= 0 && index < this.size()) {
 
       // 上一个节点
       let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
@@ -316,7 +335,7 @@ class LinkedList {
       let insertFirstNode = linkedList.getFirstNode();
       let insertLastNode = linkedList.getLastNode();
 
-      prevNode.next = insertFirstNode();
+      prevNode.next = insertFirstNode;
       insertLastNode.next = currentNode;
 
       // 链表长度 +1
