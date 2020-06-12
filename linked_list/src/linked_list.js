@@ -242,15 +242,13 @@ class LinkedList {
   }
 
   // 通过数组插入元素
-  // 可优化：先把数组转成链表，再插入；这样不需要每次插入都都去循环查找链表；
-  // 改为两个链表的拼接和插入
   insertArray(arr, index) {
     // 将数组转为链表
     const linkedList = LinkedList.fromArray(arr);
     this.insertLinkedList(linkedList, index);
   }
 
-  // 复制链表
+  // 复制链表，返回一个新链表
   copy() {
     let linkedList = new LinkedList();
     let currentNode = this.getHead();
@@ -441,7 +439,7 @@ class LinkedList {
 
     // 初始化链表参数
     this.getHead().next = undefined;
-    this.#tail = undefined;
+    this._setTail(undefined);
     this._sizeInitZero();
   }
 
