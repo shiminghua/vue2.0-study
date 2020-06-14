@@ -7,10 +7,6 @@ describe('双向链表测试', () => {
 
   test('链表初始化', () => {
     expect(linkedList.size()).toBe(0);
-    expect(linkedList.getHead().element).toBe('head');
-    expect(linkedList.getTail().element).toBe('tail');
-    expect(linkedList.getHead().next.element).toBe('tail');
-    expect(linkedList.getTail().prev.element).toBe('head');
     expect(linkedList.getFirstNode()).toBeUndefined();
   });
 
@@ -35,10 +31,6 @@ describe('双向链表测试', () => {
     expect(linkedList.size()).toBe(0);
     expect(linkedList.getFirstNode()).toBeUndefined();
     expect(linkedList.getLastNode()).toBeUndefined();
-    expect(linkedList.getHead().element).toBe('head');
-    expect(linkedList.getTail().element).toBe('tail');
-    expect(linkedList.getHead().next).toBe(linkedList.getTail());
-    expect(linkedList.getTail().prev).toBe(linkedList.getHead());
   });
 
   test('链表查询', () => {

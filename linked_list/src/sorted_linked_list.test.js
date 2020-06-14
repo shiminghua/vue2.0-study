@@ -7,6 +7,7 @@ describe('有序链表测试', () => {
 
   test('链表初始化', () => {
     linkedList.addHeadArray([9, 1, 2, 5, 4, 3, 6, 7, 8, 0]);
+
     expect(linkedList.size()).toBe(10);
     expect(linkedList.getElementAt(5)).toBe(5);
     expect(linkedList.getFirstNode().element).toBe(0);

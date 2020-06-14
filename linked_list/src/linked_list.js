@@ -5,67 +5,66 @@ import defaultEquals from './default_equals.js';
  * 子类中需要重写的公开方法
  * push、addHead、insert、concat、concatThis、insertLinkedList、removeAt、remove、clean
  * 子类中需要重写的私有方法
- * #setSize、#sizeAddOne、#sizeMinusOne、#sizeInitZero、#getHead、#getTail、#getNodeIncludeHeadAndTail
+ * _setSize、_sizeAddOne、_sizeMinusOne、_sizeInitZero、_getHead、_getTail、_getNodeIncludeHeadAndTail
  */
 
 // 单链表 
 class LinkedList {
 
-  #length = 0; // 链表长度
-  #head = new Node('head'); // 头节点
-  #tail = undefined; // 尾指针
-  #equalsFn = undefined; // 判断是否相等的函数
+  _length = 0; // 链表长度
+  _head = new Node('head'); // 头节点
+  _tail = undefined; // 尾指针
+  _equalsFn = undefined; // 判断是否相等的函数
 
   constructor(equalsFn = defaultEquals) {
-    this.#equalsFn = equalsFn; // 判断相等函数
+    this._equalsFn = equalsFn; // 判断相等函数
   }
 
   /***************************************
    * 子类中需要重写的私有方法
    * 
    */
-
   // 设置链表长度
-  #setSize(num) {
-    this.#length = num;
+  _setSize(num) {
+    this._length = num;
   }
 
   // 链表长度加 1 ，内部使用方法
-  #sizeAddOne() {
-    this.#setSize(this.size() + 1);
+  _sizeAddOne() {
+    this._setSize(this.size() + 1);
   }
 
   // 链表长度减 1，内部使用方法
-  #sizeMinusOne() {
-    this.#setSize(this.size() - 1);
+  _sizeMinusOne() {
+    this._setSize(this.size() - 1);
   }
 
   // 链表长度设为 0
-  #sizeInitZero() {
-    this.#setSize(0);
+  _sizeInitZero() {
+    this._setSize(0);
   }
 
   // 获取链表头结点
-  #getHead() {
-    return this.#head;
+  _getHead() {
+    return this._head;
   }
 
   // 获取尾结点
-  #getTail() {
-    return this.#tail;
+  _getTail() {
+    return this._tail;
   }
 
   // 获取链表中某个位置上的节点，内部使用的方法。
   // index 等于 -1 时返回头节点；index 等于 this.size() 时返回尾结点。
-  #getNodeIncludeHeadAndTail(index) {
+  _getNodeIncludeHeadAndTail(index) {
     // index 等于 -1 时返回头节点
     if (index === -1) {
-      return this.#getHead();
+      return this._getHead();
     }
 
     // index 等于 this.size() 时返回尾结点
     if (index === this.size()) {
-      return this.#tail;
+      return this._getTail();
     }
     // 正常返回节点
     return this.getNodeAt(index);
@@ -76,7 +75,7 @@ class LinkedList {
 
   // 获取链表长度
   size() {
-    return this.#length;
+    return this._length;
   }
 
   // 使用 getter ，返回链表长度
@@ -91,7 +90,7 @@ class LinkedList {
   // 获取链表的第一个元素节点
   getFirstNode() {
     if (!this.isEmpty()) {
-      return this.#getHead().next;
+      return this._getHead().next;
     }
     return undefined;
   }
@@ -108,7 +107,7 @@ class LinkedList {
   // 获取最后一个元素节点
   getLastNode() {
     if (!this.isEmpty()) {
-      return this.#getTail();
+      return this._getTail();
     }
     return undefined;
   }
@@ -123,19 +122,19 @@ class LinkedList {
   }
 
   // 设置尾结点
-  #setTail(node) {
-    this.#tail = node;
+  _setTail(node) {
+    this._tail = node;
   }
 
   // 返回一个元素的位置
   indexOf(element) {
     // 设置当前节点为第一节点，即第零个正式节点
-    let node = this.#getHead();
+    let node = this._getHead();
     // 遍历整个链表节点
     for (let i = 0; i < this.size() && node != null; i++) {
       node = node.next;
       // 判断节点元素和传入的元素是否相等，相等则返回位置 i
-      if (this.#equalsFn(element, node.element)) {
+      if (this._equalsFn(element, node.element)) {
         return i;
       }
     }
@@ -148,7 +147,7 @@ class LinkedList {
     // 判断index的值在合法范围
     if (index >= 0 && index < this.size()) {
       // 设置当前节点为头节点
-      let node = this.#getHead();
+      let node = this._getHead();
       for (let i = 0; i <= index && node != null; i++) {
         node = node.next;
       }
@@ -172,14 +171,14 @@ class LinkedList {
     const node = new Node(element);
     // 尾指针为空时，链表为空。此时头指针和尾指针都指向 node 元素
     if (this.isEmpty()) {
-      this.#getHead().next = node;
+      this._getHead().next = node;
     } else {
       // 将尾元素的next指向node节点，再将尾指针指向node节点。
-      this.#getTail().next = node;
+      this._getTail().next = node;
     }
-    this.#setTail(node);
+    this._setTail(node);
     // 链表长度加一
-    this.#sizeAddOne();
+    this._sizeAddOne();
   }
 
   enTail(element) {
@@ -201,7 +200,7 @@ class LinkedList {
   addHead(element) {
     const node = new Node(element);
     // 获取头结点
-    let headNode = this.#getHead();
+    let headNode = this._getHead();
     // 获取第一个元素节点
     let firstNode = this.getFirstNode();
 
@@ -211,11 +210,11 @@ class LinkedList {
     headNode.next = node;
 
     // 链表长度 +1
-    this.#sizeAddOne();
+    this._sizeAddOne();
 
     // 移动尾指针，指向正确的尾元素节点
     if (this.size() === 1) {
-      this.#setTail(node);
+      this._setTail(node);
     }
   }
 
@@ -246,14 +245,14 @@ class LinkedList {
 
       const node = new Node(element);
       // 上一个节点
-      let prevNode = this.#getNodeIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
       let currentNode = prevNode.next;
 
       node.next = currentNode;
       prevNode.next = node;
 
       // 链表长度 +1
-      this.#sizeAddOne();
+      this._sizeAddOne();
 
       return true;
     }
@@ -270,7 +269,7 @@ class LinkedList {
   // 复制链表，返回一个新链表
   copy() {
     let linkedList = new LinkedList();
-    let currentNode = this.#getHead();
+    let currentNode = this._getHead();
     for (let i = 0; i < this.size(); i++) {
       currentNode = currentNode.next;
       linkedList.push(currentNode.element);
@@ -287,8 +286,8 @@ class LinkedList {
 
     if (!linkedList.isEmpty()) {
       let newConcat = linkedList.copy();
-      let newTail = newLinkedList.#getTail();
-      let newHead = newLinkedList.#getHead();
+      let newTail = newLinkedList._getTail();
+      let newHead = newLinkedList._getHead();
 
       let concatFirstNode = newConcat.getFirstNode();
       let concatLastNode = newConcat.getLastNode();
@@ -300,10 +299,10 @@ class LinkedList {
       }
 
       // 移动尾指针，指向正确的尾节点
-      newLinkedList.#setTail(concatLastNode);
+      newLinkedList._setTail(concatLastNode);
 
       // 链表长度是两个链表长度之和
-      newLinkedList.#setSize(newLinkedList.size() + newConcat.size());
+      newLinkedList._setSize(newLinkedList.size() + newConcat.size());
     }
 
     return newLinkedList;
@@ -313,8 +312,8 @@ class LinkedList {
   concatThis(linkedList) {
     if (!linkedList.isEmpty()) {
       let concatLinkedList = linkedList.copy();
-      let thisHead = this.#getHead();
-      let thisTail = this.#getTail();
+      let thisHead = this._getHead();
+      let thisTail = this._getTail();
       let concatFirstNode = concatLinkedList.getFirstNode();
       let concatLastNode = concatLinkedList.getLastNode();
 
@@ -324,9 +323,9 @@ class LinkedList {
         thisTail.next = concatFirstNode;
       }
 
-      this.#setTail(concatLastNode);
+      this._setTail(concatLastNode);
 
-      this.#setSize(this.size() + concatLinkedList.size());
+      this._setSize(this.size() + concatLinkedList.size());
     }
     return this;
   }
@@ -347,7 +346,7 @@ class LinkedList {
     if (index >= 0 && index < this.size()) {
 
       // 上一个节点
-      let prevNode = this.#getNodeIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
       let currentNode = prevNode.next;
 
       let insertFirstNode = linkedList.getFirstNode();
@@ -357,7 +356,7 @@ class LinkedList {
       insertLastNode.next = currentNode;
 
       // 链表长度 +1
-      this.#setSize(this.size() + linkedList.size());
+      this._setSize(this.size() + linkedList.size());
 
       return true;
     }
@@ -370,22 +369,22 @@ class LinkedList {
     if (index >= 0 && index < this.size()) {
 
       // 上一个节点
-      let prevNode = this.#getNodeIncludeHeadAndTail(index - 1);
+      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
 
       // 获取被删除的节点（当前节点）
       let current = prevNode.next;
       // 将上一个节点指向当前节点的下一个节点
       prevNode.next = current.next;
       // 表长减一
-      this.#sizeMinusOne();
+      this._sizeMinusOne();
 
       // 当删除尾结点时，移动尾指针，使其指向真正的尾结点
       if (index === this.size()) {
-        this.#setTail(prevNode);
+        this._setTail(prevNode);
       }
       // 当表长为0时，清空尾指针
       if (this.size() === 0) {
-        this.#setTail(undefined);
+        this._setTail(undefined);
       }
       // 返回删除的节点元素
       return current.element;
@@ -423,7 +422,7 @@ class LinkedList {
   // 转为数组
   toArray() {
     let arr = [];
-    let current = this.#getHead();
+    let current = this._getHead();
     for (let i = 0; i < this.size(); i++) {
       current = current.next;
       arr.push(current.element);
@@ -452,15 +451,15 @@ class LinkedList {
     //   current.next = undefined;
     //   current = next;
 
-    //   this.#sizeMinusOne();
+    //   this._sizeMinusOne();
 
     //   i++;
     // }
 
     // 初始化链表参数
-    this.#getHead().next = undefined;
-    this.#setTail(undefined);
-    this.#sizeInitZero();
+    this._getHead().next = undefined;
+    this._setTail(undefined);
+    this._sizeInitZero();
   }
 
   // 清空链表

@@ -5,9 +5,10 @@ import defaultCompare from './default_compare';
 import defaultEquals from './default_equals';
 
 class SortedLinkedList extends DoublyLinkedList {
+
   constructor(equalsFn = defaultEquals, compareFn = defaultCompare) {
     super(equalsFn);
-    this.compareFn = compareFn;
+    this._compareFn = compareFn;
   }
 
   // 插入元素
@@ -43,17 +44,17 @@ class SortedLinkedList extends DoublyLinkedList {
   }
 
   _getNodeNextInsert(element) {
-    let current = this.getHead();
+    let current = this._getHead();
     let i = 0;
 
     for (; i < this.size(); i++) {
       current = current.next;
-      let comp = this.compareFn(element, current.element);
+      let comp = this._compareFn(element, current.element);
       if (comp === -1) {
         break;
       }
     }
-
+    // console.log(this.size(), i, current.element);
     return {
       index: i,
       node: current,
