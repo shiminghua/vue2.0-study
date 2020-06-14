@@ -54,7 +54,7 @@ class SortedLinkedList extends DoublyLinkedList {
         break;
       }
     }
-    // console.log(this.size(), i, current.element);
+
     return {
       index: i,
       node: current,
