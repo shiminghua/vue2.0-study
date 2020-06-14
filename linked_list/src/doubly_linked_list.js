@@ -141,24 +141,30 @@ class DoublyLinkedList extends LinkedList {
     // 复制链表
     let newThis = this.copy();
     let newConcat = linkedList.copy();
+
+    // 传入的链表为空时，返回this的复制链表
     if (linkedList.isEmpty()) {
       return newThis;
     }
+    // this 链表为空时，返回传入的链表
     if (this.isEmpty()) {
       return newConcat;
     }
 
+    // 此时，this 和传入的链表都不为空
     let newTail = newThis._getTail();
     let newLastNode = newThis.getLastNode();
-    let concatHead = newConcat._getHead();
     let concatFirstNode = newConcat.getFirstNode();
     let concatLastNode = newConcat.getLastNode();
 
+    // 连接逻辑
     newLastNode.next = concatFirstNode;
     concatFirstNode.prev = newLastNode;
     newTail.prev = concatLastNode;
     concatLastNode.next = newTail;
-    concatHead.next = undefined;
+    // 不用主动释放内存，垃圾处理机制会自动回收 newConcat.
+    // let concatHead = newConcat._getHead();
+    // concatHead.next = undefined;
 
     // 链表长度是两个链表长度之和
     newThis._setSize(newThis.size() + newConcat.size());
@@ -175,8 +181,6 @@ class DoublyLinkedList extends LinkedList {
       let thisLastNode = this.getLastNode();
       let concatFirstNode = newConcat.getFirstNode();
       let concatLastNode = newConcat.getLastNode();
-      let concatHead = newConcat._getHead();
-      let concatTail = newConcat._getTail();
 
       if (this.isEmpty()) {
         thisHead.next = concatFirstNode;
@@ -187,10 +191,13 @@ class DoublyLinkedList extends LinkedList {
         concatFirstNode.prev = thisLastNode;
       }
 
-      concatHead.next = undefined;
       thisTail.prev = concatLastNode;
       concatLastNode.next = thisTail;
-      concatTail.prev = undefined;
+      // 不用主动释放内存，垃圾处理机制会自动回收 newConcat.
+      // let concatHead = newConcat._getHead();
+      // let concatTail = newConcat._getTail();
+      // concatHead.next = undefined;
+      // concatTail.prev = undefined;
 
       this._setSize(this.size() + newConcat.size());
     }
@@ -220,7 +227,9 @@ class DoublyLinkedList extends LinkedList {
       let insertLastNode = linkedList.getLastNode();
 
       prevNode.next = insertFirstNode;
+      insertFirstNode.prev = prevNode;
       insertLastNode.next = currentNode;
+      currentNode.prev = insertLastNode;
 
       // 链表长度 +1
       this._setSize(this.size() + linkedList.size());
