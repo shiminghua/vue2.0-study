@@ -51,3 +51,40 @@ export function getNodeIncludeHeadAndTail(index) {
 /**
  * 子类中需要重写的私有方法结束
  ***********************************************/
+
+
+class LinkedList {
+  _copyHelp(examples) {
+    let currentNode = this._getHead();
+    for (let i = 0; i < this.size(); i++) {
+      currentNode = currentNode.next;
+      examples.push(currentNode.element);
+    }
+    return examples;
+  }
+  // 复制链表，返回一个新链表
+  copy() {
+    return this._copyHelp(new LinkedList());
+  }
+
+  // 静态方法，将数组转化为链表
+  static fromArray(arr) {
+    let linkedList = new LinkedList();
+    linkedList.pushArray(arr);
+    return linkedList;
+  }
+}
+
+class DoublyLinkedList extends LinkedList {
+  // 复制链表，返回一个新链表
+  copy() {
+    return this._copyHelp(new DoublyLinkedList());
+  }
+
+  // 静态方法，将数组转化为链表
+  static fromArray(arr) {
+    let linkedList = new DoublyLinkedList();
+    linkedList.pushArray(arr);
+    return linkedList;
+  }
+}

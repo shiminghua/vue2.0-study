@@ -133,6 +133,11 @@ class DoublyLinkedList extends LinkedList {
     return false;
   }
 
+  // 复制链表，返回一个新链表
+  copy() {
+    return this._copyHelp(new DoublyLinkedList());
+  }
+
   // 连接两个链表；
   // 次方法返回一个新链表，不会修改现有链表。
   // 是否需要使用深拷贝？
@@ -322,6 +327,13 @@ class DoublyLinkedList extends LinkedList {
     for (let i = 0; i < length; i++) {
       this.removeHead();
     }
+  }
+
+  // 静态方法，将数组转化为链表
+  static fromArray(arr) {
+    let linkedList = new DoublyLinkedList();
+    linkedList.pushArray(arr);
+    return linkedList;
   }
 
 }

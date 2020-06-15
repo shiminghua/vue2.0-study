@@ -273,9 +273,19 @@ describe('链表测试', () => {
     linkedList2.push(o3);
 
     linkedList.concatThis(linkedList2);
+    expect(linkedList.getFirstElement().b).toBe(1);
+    expect(linkedList.getLastElement().b).toBe(3);
+    expect(linkedList.size()).toBe(3);
     linkedList.push(o5);
     linkedList2.push(o4);
-
+    expect(linkedList.getFirstElement().b).toBe(1);
+    expect(linkedList.getLastElement().b).toBe(5);
+    expect(linkedList.size()).toBe(4);
     linkedList.concatThis(linkedList2);
+    expect(linkedList.getFirstElement().b).toBe(1);
+    expect(linkedList.getLastElement().b).toBe(4);
+    expect(linkedList.size()).toBe(6);
+    // console.log(linkedList.toArray());
+    // console.log(linkedList2.toArray());
   });
 });

@@ -131,4 +131,86 @@ describe('双向链表测试', () => {
     expect(linkedList.removeTail()).toBeUndefined();
   });
 
+  test('链表concat测试', () => {
+
+    linkedList.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    expect(linkedList.size()).toBe(6);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(5);
+
+    let linkedList2 = DoublyLinkedList.fromArray([6, 7, 8, 9]);
+    let linkedList3 = linkedList.concat(linkedList2);
+    // console.log('linkedList: ', linkedList);
+    // console.log('linkedList2: ', linkedList2);
+    // console.log('linkedList3: ', linkedList3);
+    expect(linkedList3.size()).toBe(10);
+    expect(linkedList3.getFirstElement()).toBe(0);
+    expect(linkedList3.getLastElement()).toBe(9);
+    expect(linkedList3.toString()).toBe('0,1,2,3,4,5,6,7,8,9');
+
+    linkedList.clear();
+    let linkedList4 = linkedList.concat(linkedList2);
+    expect(linkedList4.size()).toBe(4);
+    expect(linkedList4.getFirstElement()).toBe(6);
+    expect(linkedList4.getLastElement()).toBe(9);
+
+    linkedList.clear();
+    linkedList2.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    let linkedList5 = linkedList.concat(linkedList2);
+    expect(linkedList5.size()).toBe(6);
+    expect(linkedList5.getFirstElement()).toBe(0);
+    expect(linkedList5.getLastElement()).toBe(5);
+  });
+
+  test('链接 concatThis 测试', () => {
+    linkedList.clear();
+    linkedList.pushArray([0, 1, 2, 3, 4, 5]);
+    let linkedList2 = DoublyLinkedList.fromArray([6, 7, 8, 9]);
+    linkedList.concatThis(linkedList2);
+
+    expect(linkedList.size()).toBe(10);
+    expect(linkedList.getFirstElement()).toBe(0);
+    expect(linkedList.getLastElement()).toBe(9);
+
+    linkedList2.push(11);
+    expect(linkedList.size()).toBe(10);
+    expect(linkedList2.size()).toBe(5);
+    expect(linkedList.toString()).toBe('0,1,2,3,4,5,6,7,8,9');
+    expect(linkedList2.toString()).toBe('6,7,8,9,11');
+
+    linkedList.clear();
+    linkedList.pushArray([{ a: 1 }, { a: 2 }, { a: 3 }]);
+    linkedList2.clear();
+    linkedList2.pushArray([{ b: 1 }, { b: 2 }]);
+    linkedList.concatThis(linkedList2);
+
+    expect(linkedList.size()).toBe(5);
+    expect(linkedList2.size()).toBe(2);
+    expect(linkedList.getLastElement().b).toBe(2);
+    expect(linkedList2.getLastElement().b).toBe(2);
+
+    linkedList2.push({ b: 3 });
+    expect(linkedList.getLastElement().b).toBe(2);
+    expect(linkedList2.getLastElement().b).toBe(3);
+
+    linkedList.clean();
+    linkedList2.clear();
+    let o1 = { b: 1 };
+    let o2 = { b: 2 };
+    let o3 = { b: 3 };
+    let o4 = { b: 4 };
+    let o5 = { b: 5 };
+    linkedList.push(o1);
+    linkedList.push(o2);
+    linkedList2.push(o3);
+
+    linkedList.concatThis(linkedList2);
+    linkedList.push(o5);
+    linkedList2.push(o4);
+
+    linkedList.concatThis(linkedList2);
+  });
+
 });

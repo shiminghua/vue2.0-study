@@ -2,10 +2,12 @@ import Node from './node.js';
 import defaultEquals from './default_equals.js';
 
 /**
- * 子类中需要重写的公开方法
- * push、addHead、insert、concat、concatThis、insertLinkedList、removeAt、remove、clean
- * 子类中需要重写的私有方法
- * _setSize、_sizeAddOne、_sizeMinusOne、_sizeInitZero、_getHead、_getTail、_getNodeIncludeHeadAndTail
+ * 使用 _ 笔记类的私有属性，编码时不要使用带有 _ 的属性和方法。
+ * 
+ * 使用过类的私有属性和 mixin ，效果都不理想，会有如下问题。
+ * 1、mixin 不支持私有属性，无法复制私有属性。
+ * 2、使用私有属性时，需要重写方法，造成不必要的重复。
+ * 3、使用私有属性时，会引起未知bug，完全整不明白为什么会报错。
  */
 
 // 单链表 
@@ -266,15 +268,17 @@ class LinkedList {
     this.insertLinkedList(linkedList, index);
   }
 
-  // 复制链表，返回一个新链表
-  copy() {
-    let linkedList = new LinkedList();
+  _copyHelp(examples) {
     let currentNode = this._getHead();
     for (let i = 0; i < this.size(); i++) {
       currentNode = currentNode.next;
-      linkedList.push(currentNode.element);
+      examples.push(currentNode.element);
     }
-    return linkedList;
+    return examples;
+  }
+  // 复制链表，返回一个新链表
+  copy() {
+    return this._copyHelp(new LinkedList());
   }
 
   // 连接两个链表；
