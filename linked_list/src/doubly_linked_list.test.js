@@ -207,10 +207,18 @@ describe('双向链表测试', () => {
     linkedList2.push(o3);
 
     linkedList.concatThis(linkedList2);
+    expect(linkedList.getFirstElement()).toBe(o1);
+    expect(linkedList.getLastElement()).toBe(o3);
+    expect(linkedList.size()).toBe(3);
     linkedList.push(o5);
     linkedList2.push(o4);
-
+    expect(linkedList.getFirstElement()).toBe(o1);
+    expect(linkedList.getLastElement()).toBe(o5);
+    expect(linkedList.size()).toBe(4);
     linkedList.concatThis(linkedList2);
+    expect(linkedList.getFirstElement()).toBe(o1);
+    expect(linkedList.getLastElement()).toBe(o4);
+    expect(linkedList.size()).toBe(6);
   });
 
 });
