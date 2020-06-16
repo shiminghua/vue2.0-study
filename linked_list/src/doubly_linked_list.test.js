@@ -70,7 +70,7 @@ describe('双向链表测试', () => {
     expect(linkedList.size()).toBe(20);
     expect(linkedList.getFirstNode().element).toBe(0);
     expect(linkedList.getLastNode().element).toBe(9);
-    // console.log(linkedList.toArray());
+    // console.log(linkedList.getNodeAt(14));
     // console.log(linkedList.toString());
   });
 

@@ -114,16 +114,16 @@ class DoublyLinkedList extends LinkedList {
   insert(element, index) {
     // 检查越界值，index === this.size() 时，在链表尾部插入元素节点
     if (index >= 0 && index <= this.size()) {
-      const currentNode = new DoublyNode(element);
-      // 获取index的上一个节点
-      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
-      let nextNode = prevNode.next;
+      let node = new DoublyNode(element);
+
+      let currentNode = this._getNodeIncludeHeadAndTail(index);
+      let prevNode = currentNode.prev;
 
       // 插入逻辑
-      currentNode.next = nextNode;
-      currentNode.prev = prevNode;
-      prevNode.next = currentNode;
-      nextNode.prev = currentNode;
+      prevNode.next = node;
+      node.prev = prevNode;
+      node.next = currentNode;
+      currentNode.prev = node;
 
       // 链表长度加 1
       this._sizeAddOne();
@@ -151,7 +151,7 @@ class DoublyLinkedList extends LinkedList {
     if (linkedList.isEmpty()) {
       return newThis;
     }
-    // this 链表为空时，返回传入的链表
+    // this 链表为空时，返回传入的链表的复制链表
     if (this.isEmpty()) {
       return newConcat;
     }
@@ -162,24 +162,38 @@ class DoublyLinkedList extends LinkedList {
     let concatFirstNode = newConcat.getFirstNode();
     let concatLastNode = newConcat.getLastNode();
 
-    // 连接逻辑
+    // 链表的最后一个元素节点，连接传入链表的第一个元素节点
     newLastNode.next = concatFirstNode;
     concatFirstNode.prev = newLastNode;
+    // 传入链表的最后一个元素节点，连接链表的尾结点
     newTail.prev = concatLastNode;
     concatLastNode.next = newTail;
-    // 不用主动释放内存，垃圾处理机制会自动回收 newConcat.
-    // let concatHead = newConcat._getHead();
-    // concatHead.next = undefined;
 
     // 链表长度是两个链表长度之和
     newThis._setSize(newThis.size() + newConcat.size());
 
+    // 释放内存
+    this._freeMemory(newConcat);
+
     return newThis;
+  }
+
+  // 释放链表头尾节点的内存
+  _freeMemory(linkedList) {
+    // 有双向引用，主动释放内存
+    let concatHead = linkedList._getHead();
+    let concatTail = linkedList._getTail();
+    concatHead.next = undefined;
+    concatTail.prev = undefined;
+    // 循环链表的释放处理
+    concatHead.prev = undefined;
+    concatTail.next = undefined;
   }
 
   // 将新链表链接到本链表直上
   concatThis(linkedList) {
     if (!linkedList.isEmpty()) {
+      // 复制传入的链表
       let newConcat = linkedList.copy();
       let thisHead = this._getHead();
       let thisTail = this._getTail();
@@ -187,61 +201,79 @@ class DoublyLinkedList extends LinkedList {
       let concatFirstNode = newConcat.getFirstNode();
       let concatLastNode = newConcat.getLastNode();
 
+      // 如果链表为空，将头结点连接到传入链表的第一个元素节点
       if (this.isEmpty()) {
         thisHead.next = concatFirstNode;
         concatFirstNode.prev = thisHead;
-
       } else {
+        // 链表不为空，将链表的最后一个元素节点，连接到传入链表的第一个元素节点
         thisLastNode.next = concatFirstNode;
         concatFirstNode.prev = thisLastNode;
       }
 
+      // 将传入链表的最后一个元素节点，连接到链表的尾结点
       thisTail.prev = concatLastNode;
       concatLastNode.next = thisTail;
-      // 不用主动释放内存，垃圾处理机制会自动回收 newConcat.
-      // let concatHead = newConcat._getHead();
-      // let concatTail = newConcat._getTail();
-      // concatHead.next = undefined;
-      // concatTail.prev = undefined;
 
+      // 链表长度为两个链表长度之和
       this._setSize(this.size() + newConcat.size());
+
+      // 释放内存
+      this._freeMemory(newConcat);
+
     }
     return this;
   }
 
   // 在任意位置插入一个链表
   insertLinkedList(linkedList, index) {
-    // 当 linkedList.size() === 0 时，直接返回 this
-    if (linkedList.isEmpty()) {
-      return this;
-    }
 
-    // index === this.size() 时，连接两个链表
-    if (index === this.size()) {
-      this.concatThis(linkedList);
+    // 当 linkedList.size() === 0 时，直接返回 true
+    if (linkedList.isEmpty()) {
       return true;
     }
 
+    // 复制链表
+    let concatLinkedList = linkedList.copy();
+
+    // index === this.size() 时，连接两个链表
+    if (index === this.size()) {
+      this.concatThis(concatLinkedList);
+      return true;
+    }
+
+    // 检查index边界值
     if (index >= 0 && index < this.size()) {
 
-      // 上一个节点
-      let prevNode = this._getNodeIncludeHeadAndTail(index - 1);
-      let currentNode = prevNode.next;
+      let currentNode = this._getNodeIncludeHeadAndTail(index); // 当前节点
+      let prevNode = currentNode.prev; // 上一个节点
 
-      let insertFirstNode = linkedList.getFirstNode();
-      let insertLastNode = linkedList.getLastNode();
+      let insertFirstNode = concatLinkedList.getFirstNode(); // 插入链表的第一个元素节点
+      let insertLastNode = concatLinkedList.getLastNode(); // 插入链表的最后一个元素节点
 
+      // 链表的上一个节点，连接插入链表的第一个元素节点
       prevNode.next = insertFirstNode;
       insertFirstNode.prev = prevNode;
+      // 插入链表的最后一个元素节点，连接链表的当前节点
       insertLastNode.next = currentNode;
       currentNode.prev = insertLastNode;
 
       // 链表长度 +1
-      this._setSize(this.size() + linkedList.size());
+      this._setSize(this.size() + concatLinkedList.size());
+
+      // 释放内存
+      this._freeMemory(concatLinkedList);
 
       return true;
     }
     return false;
+  }
+
+  // 通过数组插入元素
+  insertArray(arr, index) {
+    // 将数组转为链表
+    const linkedList = DoublyLinkedList.fromArray(arr);
+    this.insertLinkedList(linkedList, index);
   }
 
   // 在链表任意位置移除元素
