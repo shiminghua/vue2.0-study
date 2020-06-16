@@ -34,9 +34,21 @@ class Deque {
     this.#data.addHead(element);
   }
 
+  addHeadArray(arr) {
+    for (let i = arr.length - 1; i >= 0; i++) {
+      this.addHead(arr[i]);
+    }
+  }
+
   // 在队尾添加新元素
   addTail(element) {
     this.#data.push(element);
+  }
+
+  addTailArray(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      this.addTail(arr[i]);
+    }
   }
 
   // 在队头移除元素
