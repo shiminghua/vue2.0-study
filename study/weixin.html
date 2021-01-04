@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no,uc-fitscreen=yes"
+    />
+    <title>汉光百货</title>
+    <style>
+      * {
+        -webkit-box-sizing: border-box;
+
+        box-sizing: border-box;
+      }
+
+      /* //禁止文本缩放 字体设置  取消touch高亮效果 */
+
+      html {
+        width: 100%;
+
+        height: 100%;
+
+        margin: 0px;
+
+        padding: 0px;
+
+        -webkit-text-size-adjust: 100%;
+
+        font-family: -apple-system, "PingFang SC", "Helvetica Neue", Helvetica,
+          STHeiTi, sans-serif;
+
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+        /* font-size: 62.5%; */
+
+        background: transparent;
+      }
+
+      body {
+        width: 100%;
+
+        height: 100%;
+
+        -webkit-overflow-scrolling: touch;
+      }
+
+      body,
+      div,
+      dl,
+      dt,
+      dd,
+      ul,
+      ol,
+      li,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      pre,
+      code,
+      form,
+      fieldset,
+      legend,
+      input,
+      textarea,
+      p,
+      blockquote,
+      th,
+      td,
+      hr,
+      button,
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section,
+      sumary {
+        margin: 0;
+
+        padding: 0;
+      }
+
+      /* //清除输入框内阴影 */
+
+      input,
+      select,
+      textarea {
+        border: 0;
+
+        -webkit-appearance: none;
+
+        appearance: none;
+      }
+
+      ol,
+      ul {
+        list-style: none;
+      }
+
+      /* //禁止选中文本内容 */
+
+      *:not(input, select, textArea) {
+        -webkit-user-select: none;
+      }
+
+      /* //禁用长按页面时的弹出菜单(iOS下有效) ,img和a标签都要加 */
+
+      img,
+      a {
+        -webkit-touch-callout: none;
+      }
+
+      a,
+      a:active,
+      a:hover {
+        text-decoration: none;
+      }
+
+      /* //去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android) */
+
+      a,
+      button,
+      input,
+      textarea {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      }
+
+      .page-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+        background-color: #f1f4f5;
+      }
+
+      .logo {
+        position: fixed;
+        top: 100px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .logo img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .main {
+        width: 100%;
+        height: 80px;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+      .main .retry-button {
+        display: block;
+        width: 80%;
+        height: 46px;
+        line-height: 46px;
+        font-size: 18px;
+        background-color: #22a853;
+        color: #ffffff;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        margin: 0 auto 12px auto;
+      }
+      .main .retry-desc {
+        color: #424242;
+        font-size: 14px;
+      }
+
+      .bottom {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      .bottom img {
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-wrapper">
+      <div class="logo">
+        <img
+          src="https://img-backend.hanguangbaihuo.com/image_service%2Fhglogo_c0a2230da71bf1e288c6007f4221282b.png"
+          alt="汉光百货"
+        />
+      </div>
+      <div class="main">
+        <a
+          id="button"
+          class="retry-button"
+          href="weixin://dl/business/?ticket=l2f683b23558f5f7e0783ddbe6d2151c9"
+          >进入汉光百货</a
+        >
+        <div class="retry-desc">
+          <text>请点击按钮打开微信小程序</text>
+        </div>
+      </div>
+      <div class="bottom">
+        <img
+          src="https://img-backend.hanguangbaihuo.com/image_service%2Fbottom_43e8a1905469e8d83d194f350c10685a.png"
+          alt="也可在微信中搜索【汉光百货】小程序"
+        />
+      </div>
+    </div>
+
+    <wx-open-launch-weapp
+      id="launch-btn"
+      username="gh_xxxxxxxx"
+      path="pages/home/index.html?user=123&action=abc"
+    >
+      <template>
+        <style>
+          .btn {
+            padding: 12px;
+          }
+        </style>
+        <button class="btn">打开小程序</button>
+      </template>
+    </wx-open-launch-weapp>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script>
+      var btn = document.getElementById("launch-btn");
+      btn.addEventListener("launch", function (e) {
+        console.log("success");
+      });
+      btn.addEventListener("error", function (e) {
+        console.log("fail", e.detail);
+      });
+
+      var isWeixin = function () {
+        //判断是否是微信
+        var ua = navigator.userAgent.toLowerCase();
+        return ua.match(/MicroMessenger/i) == "micromessenger";
+      };
+
+      console.log(isWeixin());
+
+      try {
+        document.getElementById("button").click();
+      } catch {
+        console.log(11111);
+      }
+
+      // window.location.href =
+      //   "weixin://dl/business/?ticket=l2f683b23558f5f7e0783ddbe6d2151c9";
+    </script>
+  </body>
+</html>
