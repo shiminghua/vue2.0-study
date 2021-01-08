@@ -212,7 +212,7 @@
         <a
           id="button"
           class="retry-button"
-          href="weixin://dl/business/?ticket=l2f683b23558f5f7e0783ddbe6d2151c9"
+          href="weixin://dl/business/?ticket=l136e0e7515034c9ca47aa6900c9fef83"
           >进入汉光百货</a
         >
         <div class="retry-desc">
@@ -227,7 +227,7 @@
       </div>
     </div>
 
-    <wx-open-launch-weapp
+    <!-- <wx-open-launch-weapp
       id="launch-btn"
       username="gh_xxxxxxxx"
       path="pages/home/index.html?user=123&action=abc"
@@ -240,31 +240,33 @@
         </style>
         <button class="btn">打开小程序</button>
       </template>
-    </wx-open-launch-weapp>
+    </wx-open-launch-weapp> -->
 
-    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script> -->
     <script>
-      var btn = document.getElementById("launch-btn");
-      btn.addEventListener("launch", function (e) {
-        console.log("success");
-      });
-      btn.addEventListener("error", function (e) {
-        console.log("fail", e.detail);
-      });
+      // var btn = document.getElementById("launch-btn");
+      // btn.addEventListener("launch", function (e) {
+      //   console.log("success");
+      // });
+      // btn.addEventListener("error", function (e) {
+      //   console.log("fail", e.detail);
+      // });
 
-      var isWeixin = function () {
-        //判断是否是微信
-        var ua = navigator.userAgent.toLowerCase();
-        return ua.match(/MicroMessenger/i) == "micromessenger";
-      };
+      // var isWeixin = function () {
+      //   //判断是否是微信
+      //   var ua = navigator.userAgent.toLowerCase();
+      //   return ua.match(/MicroMessenger/i) == "micromessenger";
+      // };
 
-      console.log(isWeixin());
+      // console.log(isWeixin());
 
-      try {
-        document.getElementById("button").click();
-      } catch {
-        console.log(11111);
-      }
+      document.getElementById("button").click();
+
+      // try {
+      //   document.getElementById("button").click();
+      // } catch {
+      //   console.log(11111);
+      // }
 
       // window.location.href =
       //   "weixin://dl/business/?ticket=l2f683b23558f5f7e0783ddbe6d2151c9";
